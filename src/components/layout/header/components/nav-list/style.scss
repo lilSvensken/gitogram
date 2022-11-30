@@ -1,0 +1,17 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+@import "@/components/layout/header/style";
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  @include sz-ds-hide();
+
+  &__link {
+    @include headerLink();
+
+    & + & {
+      margin-left: rem(24px);
+    }
+  }
+}

@@ -1,0 +1,62 @@
+@use "sass:math";
+
+// брекпоинты
+$desktop: 1200px;
+$tablet: 768px;
+$mobile: 320px;
+
+@function rem($num) {
+  $strip-unit: math.div($num, ($num * 0 + 1));
+  @return math.div($strip-unit, 16) * 1rem;
+}
+
+html {
+  font-size: math.div(16, 1600) * 100vw;
+
+  @media (min-width: $mobile) {
+    font-size: math.div(16, 320) * 100vw;
+  }
+  @media (min-width: $tablet) {
+    font-size: math.div(16, 768) * 100vw;
+  }
+  @media (min-width: $desktop) {
+    font-size: math.div(16, 1600) * 100vw;
+  }
+}
+
+// для адаптива, вместо @media
+@mixin for-ds-up {
+  @media screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin for-ds-down {
+  @media screen and (max-width: $desktop - 1) {
+    @content;
+  }
+}
+
+@mixin for-tb-up {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin for-tb-down {
+  @media screen and (max-width: $tablet - 1) {
+    @content;
+  }
+}
+
+@mixin for-mb-up {
+  @media screen and (min-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin for-mb-down {
+  @media screen and (max-width: $mobile - 1) {
+    @content;
+  }
+}

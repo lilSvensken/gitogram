@@ -1,0 +1,38 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+@import "@/components/layout/header/style";
+
+.auth-btn{
+  margin-right: rem(40px);
+
+  @include for-ds-down {
+    margin-right: rem(24px);
+  }
+
+  &__link {
+    @include headerLink();
+    @include sz-tb-hide();
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      .auth-btn__link-icon {
+        fill: var(--color-dark);
+      }
+    }
+  }
+
+  &__link-icon {
+    width: rem(48px);
+    height: rem(48px);
+    fill: transparent;
+    transition: all var(--transition-duration-short);
+    @include for-ds-up {
+      margin-right: rem(16px);
+    }
+  }
+
+  &__account-btn-text {
+    @include sz-ds-hide();
+  }
+}

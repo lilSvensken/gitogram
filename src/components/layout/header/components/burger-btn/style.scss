@@ -1,0 +1,53 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+
+.burger {
+  @include sz-ds-show();
+  @include resetBaseBtn;
+  display: block;
+  margin-left: rem(24px);
+
+  &__content {
+    display: block;
+    width: rem(24px);
+    height: rem(16px);
+    position: relative;
+
+    &--close {
+      height: auto;
+
+      .burger__line {
+        transition: 0.5s all;
+        margin-bottom: 0;
+        position: absolute;
+        top: 0;
+
+        &:nth-child(1) {
+          transform: rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          transform: rotate(135deg);
+        }
+
+        &:nth-child(3) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__line {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-black-100);
+    border-radius: 2px;
+    margin-bottom: rem(5px);
+    transition: 0.5s all;
+
+    &:nth-last-child(1) {
+      width: 50%;
+    }
+  }
+}

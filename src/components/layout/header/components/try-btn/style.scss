@@ -1,0 +1,6 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+
+.try-btn {
+  @include sz-tb-hide();
+}

@@ -1,0 +1,32 @@
+@import "size";
+
+:root {
+  /* colors */
+  --color-base: #0A7700;
+  --color-text: #0E0E0E;
+  --color-white: #FFFFFF;
+
+  /* page sizes */
+  --size-desktop: 1200px;
+  --size-tablet: 768px;
+  --size-mobile: 320px;
+
+  /* transitions */
+  --transition-duration-short: 200ms;
+  --transition-duration-fast: 350ms;
+
+  /* border-radius */
+  --border-radius-small: 4px;
+  --border-radius-middle: 16px;
+  --border-radius-big: 32px;
+
+  /* боковые отступы страниц */
+  --page-content-padding: 40px;
+
+  @include for-tb-down {
+    --page-content-padding: 10px;
+  }
+
+  /* font-family */
+  --font-family-inter: 'Inter', sans-serif;
+}

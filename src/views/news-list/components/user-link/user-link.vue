@@ -1,16 +1,16 @@
 <template>
-  <router-link :to="`/${user.link}`" class="user-link">
-    <img :src="user.img" :alt="user.name" class="user-link__img" />
+  <a :href="repoUrl" target="_blank" class="user-link">
+    <img :src="user.avatar_url" :alt="user.login" class="user-link__img" />
     <div class="user-link__name">
-      {{ user.name }}
+      {{ user.login }}
     </div>
-  </router-link>
+  </a>
 </template>
 
 <script>
 export default {
   name: "user-link",
-  props: ["user"],
+  props: ["user", "repoUrl"],
 };
 </script>
 

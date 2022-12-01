@@ -3,14 +3,14 @@
     <div class="page-content">
       <ul class="news-list__list">
         <li
-          v-for="(newsItem, index) in newsList"
-          :key="index"
+          v-for="item in store.users"
+          :key="item.id"
           class="news-list__item-wrapper"
         >
-          <user-link :user="newsItem.user" />
-          <news-content :news="newsItem" />
-          <c-toggle :issuesList="newsItem.issuesList" />
-          <c-date :date="newsItem.date" />
+          <user-link :user="item.owner" :repoUrl="item.svn_url" />
+          <news-content :user="item" />
+          <!--          <c-toggle :issuesList="newsItem.issuesList" />-->
+          <!--          <c-date :date="newsItem.date" />-->
         </li>
       </ul>
     </div>
@@ -23,6 +23,7 @@ import UserLink from "@/views/news-list/components/user-link/user-link.vue";
 import NewsContent from "@/views/news-list/components/news-content/news-content.vue";
 import CToggle from "@/views/news-list/components/c-toggle/c-toggle.vue";
 import CDate from "@/views/news-list/components/c-date/c-date.vue";
+import { useUsersStore } from "@/stores/users";
 
 export default {
   name: "news-list",
@@ -33,6 +34,13 @@ export default {
       newsList: newsListData,
       togglerOpenIndex: [],
     };
+  },
+  setup() {
+    const store = useUsersStore();
+    return { store };
+  },
+  mounted() {
+    this.store.getUsers();
   },
 };
 </script>

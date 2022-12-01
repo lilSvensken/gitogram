@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "https://api.landing.stage.wikiworks.io",
+  baseURL: "https://api.github.com",
 });
 
 export const makeRequest = ({
@@ -9,8 +9,8 @@ export const makeRequest = ({
   method = "get",
   data = {},
   headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    Accept: "application/vnd.github+json",
+    // "Content-Type": "application/json",
   },
 }) => {
   return client({ url, method, data, headers })

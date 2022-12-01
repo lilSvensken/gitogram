@@ -1,8 +1,8 @@
 <template>
   <div class="news-content">
     <div class="news-content__news">
-      <div class="news-content__title">{{ news.articleName }}</div>
-      <p class="news-content__text" v-html="news.articleText"></p>
+      <div class="news-content__title">{{ user.name }}</div>
+      <!--      <p class="news-content__text" v-html="user.articleText"></p>-->
     </div>
 
     <div class="news-content__controls">
@@ -12,7 +12,8 @@
       </button>
 
       <button type="button" class="news-content__btn">
-        {{ news.followersNum }}
+        <!--        {{ user.followersNum }}-->
+        156k
       </button>
 
       <button type="button" class="news-content__btn news-content__btn--grey">
@@ -21,7 +22,8 @@
       </button>
 
       <button type="button" class="news-content__btn">
-        {{ news.branchNum }}
+        <!--        {{ user.branchNum }}-->
+        4
       </button>
     </div>
   </div>
@@ -33,7 +35,7 @@ import IconBranch from "@/components/icons/IconBranch.vue";
 export default {
   name: "news-content",
   components: { IconBranch, IconStar },
-  props: ["news"],
+  props: ["user"],
   methods: {
     onRoundUp(num) {
       return num;

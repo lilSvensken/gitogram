@@ -2,6 +2,7 @@
   <div class="layout-container">
     <c-header />
     <div class="layout-content">
+      !!
       <router-view />
     </div>
     <c-footer />
@@ -11,6 +12,7 @@
 <script>
 import CFooter from "@/components/layout/footer/CFooter.vue";
 import CHeader from "@/components/layout/header/CHeader.vue";
+
 export default {
   name: "CApp",
   components: { CHeader, CFooter },

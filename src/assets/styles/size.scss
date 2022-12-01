@@ -2,27 +2,10 @@
 
 // брекпоинты
 $desktop: 1200px;
-$tablet: 768px;
-$mobile: 320px;
-
-@function rem($num) {
-  $strip-unit: math.div($num, ($num * 0 + 1));
-  @return math.div($strip-unit, 16) * 1rem;
-}
-
-html {
-  font-size: math.div(16, 1600) * 100vw;
-
-  @media (min-width: $mobile) {
-    font-size: math.div(16, 320) * 100vw;
-  }
-  @media (min-width: $tablet) {
-    font-size: math.div(16, 768) * 100vw;
-  }
-  @media (min-width: $desktop) {
-    font-size: math.div(16, 1600) * 100vw;
-  }
-}
+$tablet: 1024px;
+$ipad: 768px;
+$mobile: 376px;
+$min: 320px;
 
 // для адаптива, вместо @media
 @mixin for-ds-up {
@@ -49,6 +32,19 @@ html {
   }
 }
 
+
+@mixin for-ip-up {
+  @media screen and (min-width: $ipad) {
+    @content;
+  }
+}
+
+@mixin for-ip-down {
+  @media screen and (max-width: $ipad - 1) {
+    @content;
+  }
+}
+
 @mixin for-mb-up {
   @media screen and (min-width: $mobile) {
     @content;
@@ -57,6 +53,18 @@ html {
 
 @mixin for-mb-down {
   @media screen and (max-width: $mobile - 1) {
+    @content;
+  }
+}
+
+@mixin for-mb-up {
+  @media screen and (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin for-mb-down {
+  @media screen and (max-width: $min - 1) {
     @content;
   }
 }

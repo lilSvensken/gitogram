@@ -1,0 +1,54 @@
+.stories {
+  .swiper-container {
+    position: relative;
+  }
+
+  .swiper {
+    position: initial;
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    width: 40px;
+    height: 40px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 100%;
+      background-color: var(--color-white);
+      border: 1px solid var(--color-grey-middle);
+      width: 20px;
+      height: 20px;
+    }
+
+    &:after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 50%;
+      width: 14px;
+      height: 14px;
+      background-image: url("@/assets/icons/arrow.svg");
+      background-size: contain;
+    }
+  }
+
+  .swiper-button-prev {
+    transform: translateX(-4px);
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+  }
+
+  .swiper-button-next {
+    transform: translateX(4px);
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(-90deg);
+    }
+  }
+}

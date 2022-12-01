@@ -1,0 +1,90 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+
+$btn-size: 92px;
+$btn-size-mb: 72px;
+
+.stories {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 42px;
+
+  @include for-tb-down {
+    margin-top: 30px;
+  }
+
+  &__page-content {
+    @include for-tb-down {
+      margin-left: calc(var(--page-content-padding) * -1);
+      margin-right: calc(var(--page-content-padding) * -1);
+    }
+  }
+
+  &__wrapper {
+    @include for-tb-down {
+      width: 100vw;
+    }
+  }
+
+  &__item-wrapper {
+    @include resetBaseStyles;
+    flex: 0 1 $btn-size;
+    width: $btn-size;
+
+    @include for-tb-down {
+      &:first-child, &:last-child {
+        width: calc($btn-size + var(--page-content-padding));
+      }
+
+      &:first-child {
+        padding-left: var(--page-content-padding);
+      }
+      &:last-child {
+        padding-right: var(--page-content-padding);
+      }
+    }
+
+    @include for-ip-down {
+      &:first-child, &:last-child {
+        width: calc($btn-size-mb + var(--page-content-padding));
+      }
+    }
+  }
+
+  &__item-button {
+    @include resetBaseBtn;
+  }
+
+  &__avatar-img-wrapper {
+    @include flex-center();
+    width: $btn-size;
+    height: $btn-size;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-fuchsia);
+    border-radius: 100%;
+
+    @include for-ip-down {
+      width: $btn-size-mb;
+      height: $btn-size-mb;
+    }
+  }
+
+  &__avatar-img {
+    width: calc($btn-size - 12px);
+    height: calc($btn-size - 12px);
+    object-fit: cover;
+
+    @include for-ip-down {
+      width: calc($btn-size-mb - 12px);
+      height: calc($btn-size-mb - 12px);
+    }
+  }
+
+  &__avatar-name {
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 10px;
+    margin-top: 10px;
+  }
+}

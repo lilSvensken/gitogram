@@ -1,14 +1,17 @@
 @import "@/assets/styles/size";
 @import "@/assets/styles/minxins";
 
-#app {
-  height: 100%;
-}
-
 #body {
+  width: 100%;
+
   &.hidden {
     overflow: hidden;
   }
+}
+
+#app {
+  width: 100%;
+  height: 100%;
 }
 
 .main-content {
@@ -22,9 +25,13 @@
 }
 
 .page-content {
-  max-width: rem(1392px);
   padding-left: var(--page-content-padding);
   padding-right: var(--page-content-padding);
+  max-width: calc(1200px + var(--page-content-padding) * 2);
   margin-left: auto;
   margin-right: auto;
+
+  &.mod-small {
+    max-width: calc(980px + var(--page-content-padding) * 2);
+  }
 }

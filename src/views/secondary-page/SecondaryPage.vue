@@ -1,11 +1,11 @@
 <template>
   <main class="main-page">
-    <router-link to="/secondary"> На 2ю стр </router-link>
+    <router-link to="/"> На Главнуб стр </router-link>
   </main>
 </template>
 
 <script>
 export default {
-  name: "MainPage",
+  name: "SecondaryPage",
 };
 </script>

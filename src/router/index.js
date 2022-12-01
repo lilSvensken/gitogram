@@ -4,9 +4,14 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "mainPage",
+      path: "",
+      name: "MainPage",
       component: () => import("@/views/main-page/MainPage.vue"),
+    },
+    {
+      path: "/secondary",
+      name: "SecondaryPage",
+      component: () => import("@/views/secondary-page/SecondaryPage.vue"),
     },
     {
       path: "/:pathMatch(.*)*",

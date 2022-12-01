@@ -1,10 +1,30 @@
 @import "size";
 
 :root {
+  --page-content-padding: 40px;
+
+  @include for-tb-down {
+    --page-content-padding: 20px;
+  }
+
+  @include for-ip-down {
+    --page-content-padding: 10px;
+  }
+
   /* colors */
-  --color-base: #0A7700;
-  --color-text: #0E0E0E;
+  --color-text: #404040;
+  --color-fuchsia: #A6328D;
+  --color-green: #31AE54;
   --color-white: #FFFFFF;
+  --color-grey: #FAFAFA;
+  --color-grey-light: #F1F1F1;
+  --color-grey-middle: #D3D3D3;
+  --color-grey-dark: #9E9E9E;
+  --color-grey-very-dark: rgba(0, 0, 0, 0.4);
+
+  /* box-shadow */
+  --box-shadow-main: 0 0.33px 0 rgba(60, 60, 67, .29);
+  --box-shadow-secondary: 0 4px 40px rgba(0, 0, 0, 0.07);
 
   /* page sizes */
   --size-desktop: 1200px;
@@ -16,16 +36,7 @@
   --transition-duration-fast: 350ms;
 
   /* border-radius */
-  --border-radius-small: 4px;
-  --border-radius-middle: 16px;
-  --border-radius-big: 32px;
-
-  /* боковые отступы страниц */
-  --page-content-padding: 40px;
-
-  @include for-tb-down {
-    --page-content-padding: 10px;
-  }
+  --border-radius-middle: 10px;
 
   /* font-family */
   --font-family-inter: 'Inter', sans-serif;

@@ -1,2 +1,89 @@
 @import "@/assets/styles/size";
 @import "@/assets/styles/minxins";
+
+.header {
+  padding: 42px 0;
+  background: var(--color-grey);
+  box-shadow: var(--box-shadow-main);
+  border-bottom-color: 1px solid var(--color-grey-middle);
+
+  @include for-tb-down {
+    padding: 30px 0 46px;
+  }
+
+  @include for-ip-down {
+    padding: 30px 0 8px;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo-link {
+    margin-right: 20px;
+  }
+
+  &__logo {
+    width: 174px;
+    height: 40px;
+    object-fit: contain;
+
+    @include for-ip-down {
+      width: 100px;
+      height: 24px;
+    }
+  }
+
+  &__btns-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__btn {
+    @include resetBaseBtn;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include for-tb-down {
+      width: 40px;
+      height: 40px;
+    }
+
+    @include for-ip-down {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__btn-icon {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+
+    @include for-ip-down {
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__img-avatar {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 100%;
+
+    @include for-ip-down {
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+

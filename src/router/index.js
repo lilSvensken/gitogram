@@ -5,17 +5,17 @@ const router = createRouter({
   routes: [
     {
       path: "",
-      name: "MainPage",
-      component: () => import("@/views/main-page/MainPage.vue"),
+      name: "news-list",
+      component: () => import("@/views/news-list/news-list.vue"),
     },
     {
       path: "/secondary",
-      name: "SecondaryPage",
-      component: () => import("@/views/secondary-page/SecondaryPage.vue"),
+      name: "secondary-page",
+      component: () => import("@/views/secondary-page/secondary-page.vue"),
     },
     {
       path: "/:pathMatch(.*)*",
-      redirect: { name: "mainPage" },
+      redirect: { name: "news-list" },
     },
   ],
   scrollBehavior: function (to) {

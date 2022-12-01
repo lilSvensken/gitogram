@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <c-stories v-if="isShowStories" />
+    <stories-list v-if="isShowStories" />
   </header>
 </template>
 
@@ -32,11 +32,11 @@
 import IconLogo from "@/components/icons/IconLogo.vue";
 import IconHome from "@/components/icons/IconHome.vue";
 import IconExit from "@/components/icons/IconExit.vue";
-import CStories from "@/components/layout/header/components/stories/CStories.vue";
+import StoriesList from "@/components/layout/layout-header/components/stories-list/stories-list.vue";
 
 export default {
-  name: "CHeader",
-  components: { CStories, IconExit, IconHome, IconLogo },
+  name: "layout-header",
+  components: { StoriesList, IconExit, IconHome, IconLogo },
   data() {
     return {
       // fixme тут, вероятно, юзера из API запроса получим, и заберем img
@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     isShowStories() {
-      return this.$route.name === "MainPage";
+      return this.$route.name === "news-list";
     },
   },
 };

@@ -32,16 +32,16 @@
 </template>
 
 <script>
-import { usersList } from "@/assets/mock/usersList";
+import { usersList } from "@/assets/mock/users-list";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination } from "swiper";
 import {
   getIsNavigation,
   getSpaceBetween,
-} from "@/components/layout/header/components/stories/computeds";
+} from "@/components/layout/layout-header/components/stories-list/computeds";
 
 export default {
-  name: "CStories",
+  name: "stories-list",
   components: {
     Swiper,
     SwiperSlide,

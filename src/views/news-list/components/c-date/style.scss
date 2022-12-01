@@ -1,0 +1,12 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+
+.date {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-grey-very-dark);
+  margin-top: 10px;
+}

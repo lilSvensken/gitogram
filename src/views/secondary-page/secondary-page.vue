@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "SecondaryPage",
+  name: "secondary-page",
 };
 </script>

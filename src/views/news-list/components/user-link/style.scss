@@ -1,0 +1,39 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+
+.user-link {
+  @include resetBaseLink;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  @include for-ip-down {
+    margin-bottom: 10px;
+  }
+
+  &__img {
+    width: 44px;
+    height: 44px;
+    border-radius: 100%;
+    object-fit: cover;
+    margin-right: 14px;
+
+    @include for-ip-down {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+  }
+
+  &__name {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: -0.1px;
+
+    @include for-ip-down {
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }
+}

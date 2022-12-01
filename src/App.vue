@@ -1,21 +1,20 @@
 <template>
   <div class="layout-container">
-    <c-header />
+    <layout-header />
     <div class="layout-content">
-      !!
       <router-view />
     </div>
-    <c-footer />
+    <layout-footer />
   </div>
 </template>
 
 <script>
-import CFooter from "@/components/layout/footer/CFooter.vue";
-import CHeader from "@/components/layout/header/CHeader.vue";
+import LayoutFooter from "@/components/layout/layout-footer/layout-footer.vue";
+import LayoutHeader from "@/components/layout/layout-header/layout-header.vue";
 
 export default {
   name: "CApp",
-  components: { CHeader, CFooter },
+  components: { LayoutHeader, LayoutFooter },
 };
 </script>
 

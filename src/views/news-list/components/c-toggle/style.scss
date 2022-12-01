@@ -1,0 +1,69 @@
+@import "@/assets/styles/size";
+@import "@/assets/styles/minxins";
+
+.news-toggle {
+  margin-top: 18px;
+
+  @include for-ip-down {
+    margin-top: 10px;
+  }
+
+  &__toggler {
+    @include resetBaseBtn;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 16px 34px 16px 16px;
+    margin: -16px;
+
+    @include for-ip-down {
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
+
+  &__arrow {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+    transition: transform var(--transition-duration-short);
+
+    &--show {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &__issues-list {
+    padding-top: 10px;
+
+    &:not(.mod-show) {
+      display: none;
+    }
+  }
+
+  &__issues-item {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    display: flex;
+
+    @include for-ip-down {
+      font-size: 12px;
+      line-height: 14px;
+    }
+
+    & + & {
+      margin-top: 6px;
+    }
+  }
+
+  &__issues-name-link {
+    @include resetBaseLink;
+    font-weight: 700;
+    padding: 8px;
+    margin: -8px 0 -8px -8px;
+  }
+}
+

@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "CFooter",
+  name: "layout-footer",
 };
 </script>
 

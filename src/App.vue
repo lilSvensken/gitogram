@@ -20,20 +20,14 @@ export default {
 
 <style scoped lang="scss">
 .layout-container {
+  width: 100%;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  flex: 1;
-  height: 100%;
-  width: 100%;
   position: relative;
 }
 
 .layout-content {
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  height: 100%;
-  flex: 1 1 100%;
-  position: relative;
+  overflow: hidden;
 }
 </style>

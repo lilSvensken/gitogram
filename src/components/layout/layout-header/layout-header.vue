@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import IconLogo from "@/components/icons/IconLogo.vue";
-import IconHome from "@/components/icons/IconHome.vue";
-import IconExit from "@/components/icons/IconExit.vue";
+import IconLogo from "@/components/icons/icon-logo.vue";
+import IconHome from "@/components/icons/icon-home.vue";
+import IconExit from "@/components/icons/icon-exit.vue";
 import StoriesList from "@/components/layout/layout-header/components/stories-list/stories-list.vue";
 
 export default {

@@ -25,3 +25,9 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### Заметки что можно улучшить в проекте:
+```sh
+- добавить TS
+- prepper styles
+```

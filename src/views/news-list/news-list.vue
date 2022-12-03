@@ -3,12 +3,12 @@
     <div class="page-content">
       <ul class="news-list__list">
         <li
-          v-for="item in store.users"
-          :key="item.id"
+          v-for="repo in store.popularRepertories"
+          :key="repo.id"
           class="news-list__item-wrapper"
         >
-          <user-link :user="item.owner" :repoUrl="item.svn_url" />
-          <news-content :user="item" />
+          <owner-link :owner="repo.owner" />
+          <news-content :repo="repo" />
           <!--          <c-toggle :issuesList="newsItem.issuesList" />-->
           <!--          <c-date :date="newsItem.date" />-->
         </li>
@@ -19,15 +19,15 @@
 
 <script>
 import { newsListData } from "@/assets/mock/news-list-data";
-import UserLink from "@/views/news-list/components/user-link/user-link.vue";
+import OwnerLink from "@/views/news-list/components/owner-link/owner-link.vue";
 import NewsContent from "@/views/news-list/components/news-content/news-content.vue";
 import CToggle from "@/views/news-list/components/c-toggle/c-toggle.vue";
 import CDate from "@/views/news-list/components/c-date/c-date.vue";
-import { useUsersStore } from "@/stores/users";
+import { usePopularRepertoriesStore } from "@/stores/popular-repertories";
 
 export default {
   name: "news-list",
-  components: { CDate, CToggle, NewsContent, UserLink },
+  components: { CDate, CToggle, NewsContent, OwnerLink },
   data() {
     return {
       // fixme данные с API-запроса
@@ -36,11 +36,11 @@ export default {
     };
   },
   setup() {
-    const store = useUsersStore();
+    const store = usePopularRepertoriesStore();
     return { store };
   },
   mounted() {
-    this.store.getUsers();
+    this.store.getPopularRepertories();
   },
 };
 </script>

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import IconArrow from "@/components/icons/IconArrow.vue";
+import IconArrow from "@/components/icons/icon-arrow.vue";
 export default {
   name: "c-toggle",
   components: { IconArrow },

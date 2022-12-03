@@ -1,44 +1,61 @@
 <template>
   <div class="news-content">
     <div class="news-content__news">
-      <div class="news-content__title">{{ user.name }}</div>
-      <!--      <p class="news-content__text" v-html="user.articleText"></p>-->
+      <a :href="repo.svnUrl" target="_blank" class="news-content__title">
+        {{ repo.name }}
+      </a>
+      <p class="news-content__text" v-html="repo.description"></p>
     </div>
 
     <div class="news-content__controls">
-      <button type="button" class="news-content__btn news-content__btn--grey">
-        <icon-star class="news-content__btn-icon" />
+      <label class="news-content__btn news-content__btn--grey">
+        <input
+          type="checkbox"
+          class="news-content__star-input"
+          @click="onStar"
+        />
+        <span class="news-content__stars-wrapper">
+          <icon-star class="news-content__star" />
+          <icon-star-filled
+            class="news-content__star news-content__star--filled"
+          />
+        </span>
         Star
-      </button>
+      </label>
 
       <button type="button" class="news-content__btn">
-        <!--        {{ user.followersNum }}-->
-        156k
+        {{ onFormatStarsCount(repo.stargazersCount) }}
       </button>
 
       <button type="button" class="news-content__btn news-content__btn--grey">
-        <icon-branch class="news-content__btn-icon" />
+        <icon-branch class="news-content__branch" />
         Fork
       </button>
 
       <button type="button" class="news-content__btn">
-        <!--        {{ user.branchNum }}-->
-        4
+        {{ repo.forksCount }}
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import IconStar from "@/components/icons/IconStar.vue";
-import IconBranch from "@/components/icons/IconBranch.vue";
+import IconStar from "@/components/icons/icon-star.vue";
+import IconBranch from "@/components/icons/icon-branch.vue";
+import IconStarFilled from "@/components/icons/icon-star-filled.vue";
+import { shortenCountNumber } from "@/libs/shorten-count-number";
+
 export default {
   name: "news-content",
-  components: { IconBranch, IconStar },
-  props: ["user"],
+  components: { IconStarFilled, IconBranch, IconStar },
+  props: ["repo"],
   methods: {
-    onRoundUp(num) {
-      return num;
+    onFormatStarsCount(count) {
+      return shortenCountNumber(count);
+    },
+    onStar() {
+      // TODO реализовать добавление в избранное
+      console.log("onStar");
     },
   },
 };

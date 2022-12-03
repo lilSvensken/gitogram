@@ -1,4 +1,5 @@
 import axios from "axios";
+import { camelizeObjFields } from "@/libs/camelize";
 
 const client = axios.create({
   baseURL: "https://api.github.com",
@@ -14,6 +15,6 @@ export const makeRequest = ({
   },
 }) => {
   return client({ url, method, data, headers })
-    .then((res) => res.data)
+    .then((res) => camelizeObjFields(res.data))
     .catch((error) => error);
 };

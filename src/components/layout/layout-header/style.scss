@@ -3,9 +3,9 @@
 
 .header {
   padding: 42px 0;
-  background: var(--color-grey);
+  background: var(--color-grey-1);
   box-shadow: var(--box-shadow-main);
-  border-bottom-color: 1px solid var(--color-grey-middle);
+  border-bottom-color: 1px solid var(--color-grey-3);
 
   @include for-tb-down {
     padding: 30px 0 46px;

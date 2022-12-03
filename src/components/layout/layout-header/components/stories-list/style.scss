@@ -5,24 +5,25 @@ $btn-size: 92px;
 $btn-size-mb: 72px;
 
 .stories {
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
   margin-top: 42px;
 
-  @include for-tb-down {
+  @include for-ds-down {
     margin-top: 30px;
   }
 
   &__page-content {
-    @include for-tb-down {
+    @include for-ds-down {
       margin-left: calc(var(--page-content-padding) * -1);
       margin-right: calc(var(--page-content-padding) * -1);
     }
   }
 
   &__wrapper {
-    @include for-tb-down {
+    @include for-ds-down {
       width: 100vw;
+      margin: 0;
     }
   }
 
@@ -31,7 +32,7 @@ $btn-size-mb: 72px;
     flex: 0 1 $btn-size;
     width: $btn-size;
 
-    @include for-tb-down {
+    @include for-ds-down {
       &:first-child, &:last-child {
         width: calc($btn-size + var(--page-content-padding));
       }

@@ -10,7 +10,7 @@
           <owner-link :owner="repo.owner" />
           <repository-item :repo="repo" />
           <issues-list v-if="repo.openIssuesCount" :repo="repo" />
-          <!--          <c-date :date="newsItem.date" />-->
+          <c-date :date="repo.updatedAt" />
         </li>
       </ul>
 

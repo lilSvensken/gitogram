@@ -14,7 +14,8 @@ export default {
       let date = new Date(ms);
       return date.toLocaleDateString("en-GB", {
         day: "numeric",
-        month: "long",
+        month: "short",
+        year: "numeric",
       });
     },
   },

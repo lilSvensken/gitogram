@@ -4,24 +4,23 @@ import { getRepositoriesList } from "@/api/rest/repositories";
 import { MS_PER_WEEK } from "@/utils/consts";
 
 const LANGUAGE = "javascript";
-const PAGE_COUNT = 10;
 
 export const usePopularRepositoriesStore = defineStore("popular-repositories", {
   state: () => ({
-    popularRepositories: null,
+    popularRepositories: [],
     totalCount: null,
     error: null,
   }),
   actions: {
-    async getPopularRepositories() {
+    async getPopularRepositories(page, offset) {
       const dateWeekAgo = getDateWeekAgo();
       const qSearch = encodeURIComponent(
         `clanguage:${LANGUAGE} created:>${dateWeekAgo}`
       );
 
       try {
-        const response = await getRepositoriesList(qSearch, PAGE_COUNT);
-        this.popularRepositories = response.items;
+        const response = await getRepositoriesList(qSearch, page, offset);
+        this.popularRepositories.push(...response.items);
         this.totalCount = response.totalCount;
       } catch (error) {
         this.error = error;

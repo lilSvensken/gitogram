@@ -1,7 +1,10 @@
 <template>
   <main class="repositories-list">
     <div class="page-content page-content--small">
-      <ul v-if="store.popularRepositories" class="repositories-list__list">
+      <ul
+        v-if="store.popularRepositories.length"
+        class="repositories-list__list"
+      >
         <li
           v-for="repo in store.popularRepositories"
           :key="repo.id"
@@ -13,6 +16,7 @@
           <c-date :date="repo.updatedAt" />
         </li>
       </ul>
+      <button @click="fetchMore">fetchMore</button>
 
       <div v-if="isNoData">No data</div>
 
@@ -45,6 +49,8 @@ export default {
     return {
       loading: true,
       error: false,
+      currentPage: 1,
+      offsetPage: 2,
     };
   },
   setup() {
@@ -52,23 +58,32 @@ export default {
     return { store };
   },
   mounted() {
-    this.store
-      .getPopularRepositories()
-      .then(() => {})
-      .catch((err) => {
-        this.error = err;
-      })
-      .finally(() => {
-        this.loading = false;
-      });
+    this.fetchMore();
+  },
+  methods: {
+    fetchMore() {
+      if (
+        !this.store.totalCount ||
+        this.store.popularRepositories.length < this.store.totalCount
+      ) {
+        this.loading = true;
+        this.store
+          .getPopularRepositories(this.currentPage, this.offsetPage)
+          .then(() => {
+            this.currentPage++;
+          })
+          .catch((err) => {
+            this.error = err;
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
+    },
   },
   computed: {
     isNoData() {
-      return (
-        this.store.popularRepositories &&
-        !this.error &&
-        !this.store.popularRepositories.length
-      );
+      return !this.loading && !this.store.popularRepositories.length;
     },
   },
 };

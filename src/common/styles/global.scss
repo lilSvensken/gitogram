@@ -31,7 +31,7 @@
   margin-left: auto;
   margin-right: auto;
 
-  &.mod-small {
+  &--small {
     max-width: calc(980px + var(--page-content-padding) * 2);
   }
 }

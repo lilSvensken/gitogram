@@ -1,11 +1,11 @@
 <template>
   <main class="repositories-list">
-    <div class="page-content">
-      <ul v-if="store.popularRepositories" class="news-list__list">
+    <div class="page-content page-content--small">
+      <ul v-if="store.popularRepositories" class="repositories-list__list">
         <li
           v-for="repo in store.popularRepositories"
           :key="repo.id"
-          class="news-list__item-wrapper"
+          class="repositories-list__item-wrapper"
         >
           <owner-link :owner="repo.owner" />
           <repository-item :repo="repo" />

@@ -15,7 +15,11 @@
           :key="index"
           class="issues-list__issues-item"
         >
-          <a :href="issue.user.htmlUrl" class="issues-list__issues-name-link">
+          <a
+            :href="issue.user.htmlUrl"
+            target="_blank"
+            class="issues-list__issues-name-link"
+          >
             {{ issue.user.login }}
           </a>
           <div class="issues-list__issues-text">

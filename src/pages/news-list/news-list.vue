@@ -19,10 +19,10 @@
 
 <script>
 import { newsListData } from "@/assets/mock/news-list-data";
-import OwnerLink from "@/views/news-list/components/owner-link/owner-link.vue";
-import NewsContent from "@/views/news-list/components/news-content/news-content.vue";
-import CToggle from "@/views/news-list/components/c-toggle/c-toggle.vue";
-import CDate from "@/views/news-list/components/c-date/c-date.vue";
+import OwnerLink from "@/pages/news-list/components/owner-link/owner-link.vue";
+import NewsContent from "@/pages/news-list/components/news-content/news-content.vue";
+import CToggle from "@/pages/news-list/components/c-toggle/c-toggle.vue";
+import CDate from "@/pages/news-list/components/c-date/c-date.vue";
 import { usePopularRepertoriesStore } from "@/stores/popular-repertories";
 
 export default {

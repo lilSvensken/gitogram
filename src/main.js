@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
-import "./assets/styles/main.scss";
+import "./common/styles/main.scss";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

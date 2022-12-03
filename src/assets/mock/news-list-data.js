@@ -1,6 +1,6 @@
-import img1 from "@/assets/img/mock/avatar-1.png";
-import img2 from "@/assets/img/mock/avatar-2.png";
-import img3 from "@/assets/img/mock/avatar-3.png";
+import img1 from "@/assets/mock/img/avatar-1.png";
+import img2 from "@/assets/mock/img/avatar-2.png";
+import img3 from "@/assets/mock/img/avatar-3.png";
 
 export const newsListData = [
   {

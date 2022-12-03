@@ -12,7 +12,7 @@
           </button>
           <button type="button" class="header__btn">
             <img
-              src="@/assets/img/mock/avatar-11.png"
+              src="@/assets/mock/img/avatar-11.png"
               alt="auth"
               class="header__img-avatar"
             />
@@ -29,20 +29,14 @@
 </template>
 
 <script>
-import IconLogo from "@/components/icons/icon-logo.vue";
-import IconHome from "@/components/icons/icon-home.vue";
-import IconExit from "@/components/icons/icon-exit.vue";
-import StoriesList from "@/components/layout/layout-header/components/stories-list/stories-list.vue";
+import IconLogo from "@/assets/svg/icon-logo.vue";
+import IconHome from "@/assets/svg/icon-home.vue";
+import IconExit from "@/assets/svg/icon-exit.vue";
+import StoriesList from "@/common/components/layout-header/components/stories-list/stories-list.vue";
 
 export default {
   name: "layout-header",
   components: { StoriesList, IconExit, IconHome, IconLogo },
-  data() {
-    return {
-      // fixme тут, вероятно, юзера из API запроса получим, и заберем img
-      avatarImg: "img/avatar-11.png",
-    };
-  },
   computed: {
     isShowStories() {
       return this.$route.name === "news-list";

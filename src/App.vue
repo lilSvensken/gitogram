@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import LayoutFooter from "@/components/layout/layout-footer/layout-footer.vue";
-import LayoutHeader from "@/components/layout/layout-header/layout-header.vue";
+import LayoutFooter from "@/common/components/layout-footer/layout-footer.vue";
+import LayoutHeader from "@/common/components/layout-header/layout-header.vue";
 
 export default {
   name: "CApp",

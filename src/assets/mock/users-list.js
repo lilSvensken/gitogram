@@ -1,13 +1,13 @@
-import img1 from "@/assets/img/mock/avatar-1.png";
-import img2 from "@/assets/img/mock/avatar-2.png";
-import img3 from "@/assets/img/mock/avatar-3.png";
-import img4 from "@/assets/img/mock/avatar-4.png";
-import img5 from "@/assets/img/mock/avatar-5.png";
-import img6 from "@/assets/img/mock/avatar-6.png";
-import img7 from "@/assets/img/mock/avatar-7.png";
-import img8 from "@/assets/img/mock/avatar-8.png";
-import img9 from "@/assets/img/mock/avatar-9.png";
-import img10 from "@/assets/img/mock/avatar-10.png";
+import img1 from "@/assets/mock/img/avatar-1.png";
+import img2 from "@/assets/mock/img/avatar-2.png";
+import img3 from "@/assets/mock/img/avatar-3.png";
+import img4 from "@/assets/mock/img/avatar-4.png";
+import img5 from "@/assets/mock/img/avatar-5.png";
+import img6 from "@/assets/mock/img/avatar-6.png";
+import img7 from "@/assets/mock/img/avatar-7.png";
+import img8 from "@/assets/mock/img/avatar-8.png";
+import img9 from "@/assets/mock/img/avatar-9.png";
+import img10 from "@/assets/mock/img/avatar-10.png";
 
 export const usersList = [
   {

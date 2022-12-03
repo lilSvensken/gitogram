@@ -38,7 +38,7 @@ import { Navigation, Pagination } from "swiper";
 import {
   getIsNavigation,
   getSpaceBetween,
-} from "@/components/layout/layout-header/components/stories-list/computeds";
+} from "@/common/components/layout-header/components/stories-list/computeds";
 
 export default {
   name: "stories-list",

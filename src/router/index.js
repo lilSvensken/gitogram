@@ -6,12 +6,12 @@ const router = createRouter({
     {
       path: "",
       name: "news-list",
-      component: () => import("@/views/news-list/news-list.vue"),
+      component: () => import("@/pages/news-list/news-list.vue"),
     },
     {
       path: "/secondary",
       name: "secondary-page",
-      component: () => import("@/views/secondary-page/secondary-page.vue"),
+      component: () => import("@/pages/secondary-page/secondary-page.vue"),
     },
     {
       path: "/:pathMatch(.*)*",

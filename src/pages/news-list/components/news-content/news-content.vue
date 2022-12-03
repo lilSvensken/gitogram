@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import IconStar from "@/components/icons/icon-star.vue";
-import IconBranch from "@/components/icons/icon-branch.vue";
-import IconStarFilled from "@/components/icons/icon-star-filled.vue";
+import IconStar from "@/assets/svg/icon-star.vue";
+import IconBranch from "@/assets/svg/icon-branch.vue";
+import IconStarFilled from "@/assets/svg/icon-star-filled.vue";
 import { shortenCountNumber } from "@/libs/shorten-count-number";
 
 export default {

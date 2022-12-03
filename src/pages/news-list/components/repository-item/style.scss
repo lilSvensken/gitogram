@@ -1,7 +1,7 @@
 @import "@/common/styles/size";
 @import "@/common/styles/minxins";
 
-.news-content {
+.repository {
   @include block-shadow();
 
   &__title {
@@ -41,8 +41,13 @@
     }
   }
 
-  &__btn {
+  &__control {
     @include resetBaseBtn;
+    @include resetBaseLink;
+    user-select: none;
+  }
+
+  &__control, &__control-info {
     padding: 4px 10px;
     font-weight: 400;
     font-size: 14px;
@@ -51,7 +56,6 @@
     margin-left: -1px;
     display: flex;
     align-items: center;
-    user-select: none;
 
     @include for-ip-down {
       font-size: 10px;
@@ -72,16 +76,23 @@
     }
   }
 
+  &__control-info {
+    &--grey {
+      opacity: .6;
+      user-select: none;
+    }
+  }
+
   &__star-input {
     display: none;
 
     &:checked {
-      + .news-content__stars-wrapper {
-        .news-content__star {
+      + .repository__stars-wrapper {
+        .repository__star {
           opacity: 0;
         }
 
-        .news-content__star--filled {
+        .repository__star--filled {
           opacity: 1;
         }
       }

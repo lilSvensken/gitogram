@@ -1,28 +1,27 @@
 /** получение репозиторев на языку JS за последнюю неделю */
 import { defineStore } from "pinia";
-import { getPopularRepertories } from "@/api/rest/popular-repertories";
+import { getRepositoriesList } from "@/api/rest/repositories";
 import { MS_PER_WEEK } from "@/utils/consts";
 
 const LANGUAGE = "javascript";
 const PAGE_COUNT = 10;
 
-export const usePopularRepertoriesStore = defineStore("popular-repertories", {
+export const usePopularRepositoriesStore = defineStore("popular-repositories", {
   state: () => ({
-    popularRepertories: null,
+    popularRepositories: null,
     totalCount: null,
     error: null,
   }),
   actions: {
-    async getPopularRepertories() {
+    async getPopularRepositories() {
       const dateWeekAgo = getDateWeekAgo();
       const qSearch = encodeURIComponent(
         `clanguage:${LANGUAGE} created:>${dateWeekAgo}`
       );
 
       try {
-        const response = await getPopularRepertories(qSearch, PAGE_COUNT);
-        console.log(response);
-        this.popularRepertories = response.items;
+        const response = await getRepositoriesList(qSearch, PAGE_COUNT);
+        this.popularRepositories = response.items;
         this.totalCount = response.totalCount;
       } catch (error) {
         this.error = error;

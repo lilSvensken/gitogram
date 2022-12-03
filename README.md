@@ -30,4 +30,5 @@ npm run lint
 ```sh
 - добавить TS
 - prepper styles
+- добавить ветку для dist на гитхаб page
 ```

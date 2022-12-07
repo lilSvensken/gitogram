@@ -2,14 +2,16 @@
 
 .btn {
   @include resetBaseBtn;
-  background-color: var(--color-fuchsia);
+  background-color: var(--color-green);
   color: var(--color-white);
-  border-radius: var(--border-radius-middle);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1;
+  border-radius: var(--border-radius-very-small);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 10px 20px;
+  transition: opacity var(--transition-duration-short);
 
-  &--main {
-    padding: 10px 20px;
+  &:hover {
+    opacity: 0.8;
   }
 }

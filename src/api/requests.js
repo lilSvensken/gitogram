@@ -10,8 +10,7 @@ export const makeRequest = ({
   method = "get",
   data = {},
   headers = {
-    Accept: "application/vnd.github+json",
-    // "Content-Type": "application/json",
+    accept: "application/vnd.github+json",
   },
 }) => {
   return client({ url, method, data, headers })

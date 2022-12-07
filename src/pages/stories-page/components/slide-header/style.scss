@@ -1,0 +1,57 @@
+@import "@/common/styles/size";
+@import "@/common/styles/minxins";
+
+.slide-header {
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid var(--color-grey-3);
+  padding: 8px 8px 0 8px;
+
+  &__rate-wrapper {
+    width: 100%;
+    height: 2px;
+    overflow: hidden;
+    position: relative;
+
+    &:before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-green);
+      opacity: 0.3;
+      border-radius: 1px;
+    }
+  }
+
+  &__rate {
+    border-radius: 1px;
+    height: 100%;
+    background-color: var(--color-green);
+  }
+
+  &__user-info {
+    @include resetBaseLink;
+    display: flex;
+    align-items: center;
+  }
+
+  &__avatar {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+  }
+
+  &__login {
+    margin: 12px 0;
+    width: 100%;
+    flex: 1 1 100%;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

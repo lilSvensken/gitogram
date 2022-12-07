@@ -1,5 +1,5 @@
 <template>
-  <div class="stories">
+  <div class="stories stories-list-swiper">
     <div class="swiper-container stories__page-content page-content">
       <swiper
         v-if="store.popularRepositories"
@@ -16,7 +16,7 @@
           :key="repo.id"
           class="stories__item-wrapper"
         >
-          <button type="button" class="stories__item-button">
+          <router-link :to="storiesUrl" class="stories__item-button">
             <span class="stories__avatar-img-wrapper">
               <img
                 :src="repo.owner.avatarUrl"
@@ -27,7 +27,7 @@
             <span class="stories__avatar-name">
               {{ repo.owner.login }}
             </span>
-          </button>
+          </router-link>
         </swiper-slide>
       </swiper>
 
@@ -48,6 +48,7 @@ import {
 } from "@/common/components/layout-header/components/stories-list/computeds";
 import { usePopularRepositoriesStore } from "@/stores/popular-repositories";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
+import { routerParams } from "@/router/router-params";
 
 export default {
   name: "stories-list",
@@ -124,6 +125,9 @@ export default {
       const startOffset = 10;
       const offsetDownload = 5;
       return this.currentPage === 1 ? startOffset : offsetDownload;
+    },
+    storiesUrl() {
+      return `/${routerParams.stories}`;
     },
   },
 };

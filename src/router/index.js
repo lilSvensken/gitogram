@@ -1,26 +1,27 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { routerParams } from "@/router/router-params";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     // {
-    //   path: "/news-list",
-    //   name: "news-list",
-    //   component: () => import("@/pages/news-list/repositories-list.vue"),
+    //   path: "/repositories-list",
+    //   name: "repositories-list",
+    //   component: () => import("@/pages/repositories-list/repositories-list.vue"),
     // },
     {
-      path: "/news-list",
-      name: "news-list",
+      path: `/${routerParams.repositoriesList}`,
+      name: routerParams.repositoriesList,
       component: () => import("@/pages/secondary-page/secondary-page.vue"),
     },
-    // {
-    //   path: "/secondary",
-    //   name: "secondary-page",
-    //   component: () => import("@/pages/secondary-page/secondary-page.vue"),
-    // },
+    {
+      path: `/${routerParams.stories}`,
+      name: routerParams.stories,
+      component: () => import("@/pages/stories-page/stories-page.vue"),
+    },
     {
       path: "/:pathMatch(.*)*",
-      redirect: { name: "news-list" },
+      redirect: { name: routerParams.repositoriesList },
     },
   ],
   scrollBehavior: function (to) {

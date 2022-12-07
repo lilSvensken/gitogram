@@ -39,7 +39,7 @@ import CLoader from "@/common/components/loader/loader.vue";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
 import IssuesList from "@/pages/news-list/components/issues-list/issues-list.vue";
 
-// TODO сделать ленивую подгрузку вместо кнопки
+// TODO ПОЛУЧАЮ НЕ ТЕ ДАННЫЕ ПЕРЕДЕЛАТЬ
 export default {
   name: "news-list",
   components: {
@@ -55,7 +55,7 @@ export default {
       loading: true,
       error: false,
       currentPage: 1,
-      offsetPage: 10,
+      offsetPage: 20,
     };
   },
   setup() {

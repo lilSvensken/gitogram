@@ -15,6 +15,7 @@
   margin: 0;
   outline: none;
   border: 0;
+  user-select: none;
 
   &[disabled] {
     cursor: default;

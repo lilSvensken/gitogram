@@ -1,0 +1,15 @@
+@import "@/common/styles/minxins";
+
+.btn {
+  @include resetBaseBtn;
+  background-color: var(--color-fuchsia);
+  color: var(--color-white);
+  border-radius: var(--border-radius-middle);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+
+  &--main {
+    padding: 10px 20px;
+  }
+}

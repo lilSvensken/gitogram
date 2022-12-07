@@ -16,7 +16,11 @@
           <c-date :date="repo.updatedAt" />
         </li>
       </ul>
-      <button @click="fetchMore">fetchMore</button>
+      <div class="repositories-list__btn-more-wrapper">
+        <button @click="fetchMore" class="btn btn--main btn--center-row">
+          Показать ещё
+        </button>
+      </div>
 
       <div v-if="isNoData">No data</div>
 
@@ -35,6 +39,7 @@ import CLoader from "@/common/components/loader/loader.vue";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
 import IssuesList from "@/pages/news-list/components/issues-list/issues-list.vue";
 
+// TODO сделать ленивую подгрузку вместо кнопки
 export default {
   name: "news-list",
   components: {
@@ -50,7 +55,7 @@ export default {
       loading: true,
       error: false,
       currentPage: 1,
-      offsetPage: 2,
+      offsetPage: 10,
     };
   },
   setup() {

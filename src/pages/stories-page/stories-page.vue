@@ -15,7 +15,11 @@
         class="stories__item-wrapper"
         :class="{ ['active']: slideActive === index }"
       >
-        <slide-header />
+        <slide-header
+          :progressPercent="progressPercent"
+          :index="index"
+          :slideActive="slideActive"
+        />
 
         <div class="stories__info">
           stories__info<br />stories__info<br />stories__info<br />stories__info<br />
@@ -42,6 +46,11 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination } from "swiper";
 import SlideHeader from "@/pages/stories-page/components/slide-header/slide-header.vue";
+import {
+  MAX_PROGRESS_PERCENT,
+  MIN_PROGRESS_PERCENT,
+  SPEED_CHANGE_SLIDE,
+} from "@/pages/stories-page/consts";
 
 export default {
   name: "stories-page",
@@ -54,11 +63,16 @@ export default {
     return {
       swiper: undefined,
       slideActive: 0,
-      storiesList: [1, 2, 3, 4, 5, 6, 7],
+      storiesList: [1, 2, 3],
+      progressPercent: 0,
+      progressInterval: 0,
     };
   },
   setup() {
     return { modules: [Navigation, Pagination] };
+  },
+  mounted() {
+    this.startTimerAutoFlipping();
   },
   methods: {
     onSwiper(swiper) {
@@ -66,6 +80,21 @@ export default {
     },
     setActiveSlide() {
       this.slideActive = this.swiper.activeIndex;
+      this.startTimerAutoFlipping();
+    },
+    startTimerAutoFlipping() {
+      this.progressPercent = MIN_PROGRESS_PERCENT;
+      clearInterval(this.progressInterval);
+
+      this.progressInterval = setInterval(() => {
+        this.progressPercent++;
+        if (this.progressPercent === MAX_PROGRESS_PERCENT) {
+          this.swiper.slideNext();
+          if (this.slideActive === this.storiesList.length) {
+            clearInterval(this.progressInterval);
+          }
+        }
+      }, SPEED_CHANGE_SLIDE);
     },
   },
 };

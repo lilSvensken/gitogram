@@ -9,10 +9,29 @@ export const usePopularRepositoriesStore = defineStore("popular-repositories", {
   state: () => ({
     popularRepositories: [],
     totalCount: null,
+    loading: false,
     error: null,
     currentPage: 1,
   }),
   actions: {
+    fetchMore() {
+      if (
+        !this.totalCount ||
+        this.popularRepositories.length < this.totalCount
+      ) {
+        this.loading = true;
+        return this.getPopularRepositories(this.currentPage, this.getOffsetPage)
+          .then(() => {
+            this.store.currentPage++;
+          })
+          .catch((err) => {
+            this.error = err;
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
+    },
     async getPopularRepositories(page, offset) {
       const dateWeekAgo = getDateWeekAgo();
       const qSearch = encodeURIComponent(

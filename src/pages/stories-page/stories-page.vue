@@ -10,8 +10,8 @@
       @slideChange="setActiveSlide"
     >
       <swiper-slide
-        v-for="(story, index) in storiesList"
-        :key="story"
+        v-for="(repo, index) in store.popularRepositories"
+        :key="repo.id"
         class="stories__item-wrapper"
         :class="{ ['active']: slideActive === index }"
       >
@@ -51,6 +51,8 @@ import {
   MIN_PROGRESS_PERCENT,
   SPEED_CHANGE_SLIDE,
 } from "@/pages/stories-page/consts";
+import { usePopularRepositoriesStore } from "@/stores/popular-repositories";
+import { routerQuery } from "@/router/router-params";
 
 export default {
   name: "stories-page",
@@ -69,30 +71,49 @@ export default {
     };
   },
   setup() {
-    return { modules: [Navigation, Pagination] };
+    const store = usePopularRepositoriesStore();
+    return {
+      store,
+      modules: [Navigation, Pagination],
+    };
   },
   methods: {
     onSwiper(swiper) {
       this.swiper = swiper;
       this.startTimerAutoFlipping();
+      this.slideTo();
     },
     setActiveSlide() {
       this.slideActive = this.swiper.activeIndex;
       this.startTimerAutoFlipping();
+    },
+    slideTo() {
+      const itemId = +this.$route.params[routerQuery.id];
+      const activeIndex = this.store.popularRepositories.findIndex(
+        (item) => item.id === itemId
+      );
+      this.swiper.slideTo(activeIndex);
     },
     startTimerAutoFlipping() {
       this.progressPercent = MIN_PROGRESS_PERCENT;
       clearInterval(this.progressInterval);
 
       this.progressInterval = setInterval(() => {
-        this.progressPercent++;
-        if (this.progressPercent === MAX_PROGRESS_PERCENT) {
-          this.swiper.slideNext();
-          if (this.slideActive === this.storiesList.length) {
-            clearInterval(this.progressInterval);
+        if (!this.swiper.destroyed) {
+          this.progressPercent++;
+          if (this.progressPercent === MAX_PROGRESS_PERCENT) {
+            this.swiper.slideNext();
+            if (this.slideActive === this.storiesList.length) {
+              this.fetchMore();
+            }
           }
+        } else {
+          clearInterval(this.progressInterval);
         }
       }, SPEED_CHANGE_SLIDE);
+    },
+    fetchMore() {
+      // clearInterval(this.progressInterval);
     },
   },
 };

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { routerParams } from "@/router/router-params";
+import { routerParams, routerQuery } from "@/router/router-params";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,7 +15,7 @@ const router = createRouter({
       component: () => import("@/pages/secondary-page/secondary-page.vue"),
     },
     {
-      path: `/${routerParams.stories}`,
+      path: `/${routerParams.stories}/:${routerQuery.id}`,
       name: routerParams.stories,
       component: () => import("@/pages/stories-page/stories-page.vue"),
     },

@@ -16,7 +16,7 @@
           :key="repo.id"
           class="stories__item-wrapper"
         >
-          <router-link :to="storiesUrl" class="stories__item-button">
+          <router-link :to="getStoryUrl(repo.id)" class="stories__item-button">
             <span class="stories__avatar-img-wrapper">
               <img
                 :src="repo.owner.avatarUrl"
@@ -33,7 +33,7 @@
 
       <div v-if="isNoData">No data</div>
 
-      <div v-if="loading" class="stories__loading">loading...</div>
+      <div v-if="store.loading" class="stories__loading">loading...</div>
       <error-rest v-if="error" />
     </div>
   </div>
@@ -60,7 +60,6 @@ export default {
   data() {
     return {
       swiper: undefined,
-      loading: true,
       error: false,
       checkTimeout: undefined,
     };
@@ -85,28 +84,17 @@ export default {
       }
     },
     fetchMore() {
-      if (
-        !this.store.totalCount ||
-        this.store.popularRepositories.length < this.store.totalCount
-      ) {
-        this.loading = true;
-        this.store
-          .getPopularRepositories(this.store.currentPage, this.getOffsetPage)
-          .then(() => {
-            this.store.currentPage++;
-            // setTimeout, чтобы не было ошибки из-за слишком быстрого запроса на github
-            clearTimeout(this.checkTimeout);
-            this.checkTimeout = setTimeout(() => {
-              this.checkByEndSlide();
-            }, 1000);
-          })
-          .catch((err) => {
-            this.error = err;
-          })
-          .finally(() => {
-            this.loading = false;
-          });
-      }
+      this.store.fetchMore().then(() => {
+        console.log(111);
+        // setTimeout, чтобы не было ошибки из-за слишком быстрого запроса на github
+        clearTimeout(this.checkTimeout);
+        this.checkTimeout = setTimeout(() => {
+          this.checkByEndSlide();
+        }, 1000);
+      });
+    },
+    getStoryUrl(id) {
+      return `/${routerParams.stories}/${id}`;
     },
   },
   computed: {
@@ -117,15 +105,12 @@ export default {
       return getSpaceBetween();
     },
     isNoData() {
-      return !this.loading && !this.store.popularRepositories.length;
+      return !this.store.loading && !this.store.popularRepositories.length;
     },
     getOffsetPage() {
       const startOffset = 10;
       const offsetDownload = 5;
       return this.store.currentPage === 1 ? startOffset : offsetDownload;
-    },
-    storiesUrl() {
-      return `/${routerParams.stories}`;
     },
   },
 };

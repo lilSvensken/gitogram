@@ -62,6 +62,22 @@ $btn-size-mb: 72px;
     flex-direction: column;
     align-items: center;
     width: 100%;
+
+    &:hover {
+      .stories__avatar-img-wrapper {
+        border-color: transparent;
+      }
+
+      .stories__avatar-img {
+        width: $btn-size;
+        height: $btn-size;
+
+        @include for-ip-down {
+          width: $btn-size-mb;
+          height: $btn-size-mb;
+        }
+      }
+    }
   }
 
   &__avatar-img-wrapper {
@@ -71,6 +87,7 @@ $btn-size-mb: 72px;
     background-color: var(--color-white);
     border: 2px solid var(--color-fuchsia);
     border-radius: 100%;
+    transition: border-color var(--transition-duration-fast);
 
     @include for-ip-down {
       width: $btn-size-mb;
@@ -82,6 +99,7 @@ $btn-size-mb: 72px;
     width: calc($btn-size - 12px);
     height: calc($btn-size - 12px);
     border-radius: 100%;
+    transition: all var(--transition-duration-fast);
     object-fit: cover;
 
     @include for-ip-down {

@@ -10,7 +10,7 @@
       @slideChange="setActiveSlide"
     >
       <swiper-slide
-        v-for="(repo, index) in store.popularRepositories"
+        v-for="(repo, index) in store.popularRepos"
         :key="repo.id"
         class="stories__item-wrapper"
         :class="{ ['active']: slideActive === index }"
@@ -51,7 +51,7 @@ import {
   MIN_PROGRESS_PERCENT,
   SPEED_CHANGE_SLIDE,
 } from "@/pages/stories-page/consts";
-import { usePopularRepositoriesStore } from "@/stores/popular-repositories";
+import { usePopularReposStore } from "@/stores/popular-repositories";
 import { routerQuery } from "@/router/router-params";
 
 export default {
@@ -65,13 +65,12 @@ export default {
     return {
       swiper: undefined,
       slideActive: 0,
-      storiesList: [1, 2, 3],
       progressPercent: 0,
       progressInterval: 0,
     };
   },
   setup() {
-    const store = usePopularRepositoriesStore();
+    const store = usePopularReposStore();
     return {
       store,
       modules: [Navigation, Pagination],
@@ -86,10 +85,13 @@ export default {
     setActiveSlide() {
       this.slideActive = this.swiper.activeIndex;
       this.startTimerAutoFlipping();
+      if (this.slideActive === this.store.popularRepos.length - 2) {
+        this.fetchMore();
+      }
     },
     slideTo() {
       const itemId = +this.$route.params[routerQuery.id];
-      const activeIndex = this.store.popularRepositories.findIndex(
+      const activeIndex = this.store.popularRepos.findIndex(
         (item) => item.id === itemId
       );
       this.swiper.slideTo(activeIndex);
@@ -103,9 +105,6 @@ export default {
           this.progressPercent++;
           if (this.progressPercent === MAX_PROGRESS_PERCENT) {
             this.swiper.slideNext();
-            if (this.slideActive === this.storiesList.length) {
-              this.fetchMore();
-            }
           }
         } else {
           clearInterval(this.progressInterval);
@@ -113,7 +112,15 @@ export default {
       }, SPEED_CHANGE_SLIDE);
     },
     fetchMore() {
-      // clearInterval(this.progressInterval);
+      this.store.fetchMorePopularRepos().then(() => {
+        // достижение конечного элемента в списке на сервере
+        if (
+          this.store.totalCount &&
+          this.store.popularRepos.length === this.store.totalCount
+        ) {
+          clearInterval(this.progressInterval);
+        }
+      });
     },
   },
 };

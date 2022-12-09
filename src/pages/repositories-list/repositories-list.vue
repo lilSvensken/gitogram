@@ -1,12 +1,9 @@
 <template>
   <main class="repositories-list">
     <div class="page-content page-content--small">
-      <ul
-        v-if="store.popularRepositories.length"
-        class="repositories-list__list"
-      >
+      <ul v-if="store.popularRepos.length" class="repositories-list__list">
         <li
-          v-for="repo in store.popularRepositories"
+          v-for="repo in store.popularRepos"
           :key="repo.id"
           class="repositories-list__item-wrapper"
         >
@@ -34,7 +31,7 @@
 import OwnerLink from "@/pages/news-list/components/owner-link/owner-link.vue";
 import RepositoryItem from "@/pages/news-list/components/repository-item/repository-item.vue";
 import CDate from "@/pages/news-list/components/c-date/c-date.vue";
-import { usePopularRepositoriesStore } from "@/stores/popular-repositories";
+import { usePopularReposStore } from "@/stores/popular-repositories";
 import CLoader from "@/common/components/loader/loader.vue";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
 import IssuesList from "@/pages/news-list/components/issues-list/issues-list.vue";
@@ -59,7 +56,7 @@ export default {
     };
   },
   setup() {
-    const store = usePopularRepositoriesStore();
+    const store = usePopularReposStore();
     return { store };
   },
   mounted() {
@@ -69,11 +66,11 @@ export default {
     fetchMore() {
       if (
         !this.store.totalCount ||
-        this.store.popularRepositories.length < this.store.totalCount
+        this.store.popularRepos.length < this.store.totalCount
       ) {
         this.loading = true;
         this.store
-          .getPopularRepositories(this.currentPage, this.offsetPage)
+          .getpopularRepos(this.currentPage, this.offsetPage)
           .then(() => {
             this.currentPage++;
           })
@@ -88,7 +85,7 @@ export default {
   },
   computed: {
     isNoData() {
-      return !this.loading && !this.store.popularRepositories.length;
+      return !this.loading && !this.store.popularRepos.length;
     },
   },
 };

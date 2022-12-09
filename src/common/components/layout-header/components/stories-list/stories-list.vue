@@ -2,7 +2,7 @@
   <div class="stories stories-list-swiper">
     <div class="swiper-container stories__page-content page-content">
       <swiper
-        v-if="store.popularRepositories"
+        v-if="store.popularRepos"
         :modules="modules"
         :slides-per-view="'auto'"
         :space-between="spaceBetween"
@@ -12,7 +12,7 @@
         @slideChange="checkByEndSlide"
       >
         <swiper-slide
-          v-for="repo in store.popularRepositories"
+          v-for="repo in store.popularRepos"
           :key="repo.id"
           class="stories__item-wrapper"
         >
@@ -33,7 +33,7 @@
 
       <div v-if="isNoData">No data</div>
 
-      <div v-if="store.loading" class="stories__loading">loading...</div>
+      <c-loader v-if="store.loading" />
       <error-rest v-if="error" />
     </div>
   </div>
@@ -46,13 +46,15 @@ import {
   getIsNavigation,
   getSpaceBetween,
 } from "@/common/components/layout-header/components/stories-list/computeds";
-import { usePopularRepositoriesStore } from "@/stores/popular-repositories";
+import { usePopularReposStore } from "@/stores/popular-repositories";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
 import { routerParams } from "@/router/router-params";
+import CLoader from "@/common/components/layout-header/components/stories-list/components/c-loader/c-loader.vue";
 
 export default {
   name: "stories-list",
   components: {
+    CLoader,
     ErrorRest,
     Swiper,
     SwiperSlide,
@@ -65,14 +67,14 @@ export default {
     };
   },
   setup() {
-    const store = usePopularRepositoriesStore();
+    const store = usePopularReposStore();
     return {
       store,
       modules: [Navigation, Pagination],
     };
   },
   mounted() {
-    this.fetchMore();
+    this.checkByEndSlide();
   },
   methods: {
     onSwiper(swiper) {
@@ -84,13 +86,12 @@ export default {
       }
     },
     fetchMore() {
-      this.store.fetchMore().then(() => {
-        console.log(111);
+      this.store.fetchMorePopularRepos().then(() => {
         // setTimeout, чтобы не было ошибки из-за слишком быстрого запроса на github
         clearTimeout(this.checkTimeout);
         this.checkTimeout = setTimeout(() => {
           this.checkByEndSlide();
-        }, 1000);
+        }, 5000);
       });
     },
     getStoryUrl(id) {
@@ -105,12 +106,7 @@ export default {
       return getSpaceBetween();
     },
     isNoData() {
-      return !this.store.loading && !this.store.popularRepositories.length;
-    },
-    getOffsetPage() {
-      const startOffset = 10;
-      const offsetDownload = 5;
-      return this.store.currentPage === 1 ? startOffset : offsetDownload;
+      return !this.store.loading && !this.store.popularRepos.length;
     },
   },
 };

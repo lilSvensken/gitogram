@@ -5,46 +5,45 @@ import { MS_PER_WEEK } from "@/utils/consts";
 
 const LANGUAGE = "javascript";
 
-export const usePopularRepositoriesStore = defineStore("popular-repositories", {
+export const usePopularReposStore = defineStore("popular-repositories", {
   state: () => ({
-    popularRepositories: [],
+    popularRepos: [],
     totalCount: null,
     loading: false,
     error: null,
     currentPage: 1,
   }),
   actions: {
-    fetchMore() {
-      if (
-        !this.totalCount ||
-        this.popularRepositories.length < this.totalCount
-      ) {
+    async fetchMorePopularRepos() {
+      if (!this.totalCount || this.popularRepos.length < this.totalCount) {
         this.loading = true;
-        return this.getPopularRepositories(this.currentPage, this.getOffsetPage)
-          .then(() => {
-            this.store.currentPage++;
-          })
-          .catch((err) => {
-            this.error = err;
-          })
-          .finally(() => {
-            this.loading = false;
-          });
+
+        const qSearch = this.getQSearch();
+        const page = this.currentPage;
+        const offset = this.getOffsetPage();
+
+        try {
+          const response = await getRepositoriesList(qSearch, page, offset);
+          this.currentPage++;
+          this.popularRepos.push(...response.items);
+          this.totalCount = response.totalCount;
+        } catch (error) {
+          this.error = error;
+        } finally {
+          this.loading = false;
+        }
       }
     },
-    async getPopularRepositories(page, offset) {
+    getOffsetPage() {
+      const startOffset = 11;
+      const offsetDownload = 5;
+      return this.currentPage === 1 ? startOffset : offsetDownload;
+    },
+    getQSearch() {
       const dateWeekAgo = getDateWeekAgo();
-      const qSearch = encodeURIComponent(
+      return encodeURIComponent(
         `clanguage:${LANGUAGE} created:>${dateWeekAgo}`
       );
-
-      try {
-        const response = await getRepositoriesList(qSearch, page, offset);
-        this.popularRepositories.push(...response.items);
-        this.totalCount = response.totalCount;
-      } catch (error) {
-        this.error = error;
-      }
     },
   },
 });

@@ -71,12 +71,10 @@ export default {
   setup() {
     return { modules: [Navigation, Pagination] };
   },
-  mounted() {
-    this.startTimerAutoFlipping();
-  },
   methods: {
     onSwiper(swiper) {
       this.swiper = swiper;
+      this.startTimerAutoFlipping();
     },
     setActiveSlide() {
       this.slideActive = this.swiper.activeIndex;

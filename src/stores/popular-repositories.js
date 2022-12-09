@@ -10,6 +10,7 @@ export const usePopularRepositoriesStore = defineStore("popular-repositories", {
     popularRepositories: [],
     totalCount: null,
     error: null,
+    currentPage: 1,
   }),
   actions: {
     async getPopularRepositories(page, offset) {

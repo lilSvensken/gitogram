@@ -62,7 +62,6 @@ export default {
       swiper: undefined,
       loading: true,
       error: false,
-      currentPage: 1,
       checkTimeout: undefined,
     };
   },
@@ -79,7 +78,6 @@ export default {
   methods: {
     onSwiper(swiper) {
       this.swiper = swiper;
-      this.checkByEndSlide();
     },
     checkByEndSlide() {
       if (this.swiper.isEnd) {
@@ -93,9 +91,9 @@ export default {
       ) {
         this.loading = true;
         this.store
-          .getPopularRepositories(this.currentPage, this.getOffsetPage)
+          .getPopularRepositories(this.store.currentPage, this.getOffsetPage)
           .then(() => {
-            this.currentPage++;
+            this.store.currentPage++;
             // setTimeout, чтобы не было ошибки из-за слишком быстрого запроса на github
             clearTimeout(this.checkTimeout);
             this.checkTimeout = setTimeout(() => {
@@ -124,7 +122,7 @@ export default {
     getOffsetPage() {
       const startOffset = 10;
       const offsetDownload = 5;
-      return this.currentPage === 1 ? startOffset : offsetDownload;
+      return this.store.currentPage === 1 ? startOffset : offsetDownload;
     },
     storiesUrl() {
       return `/${routerParams.stories}`;

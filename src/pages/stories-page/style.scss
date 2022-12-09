@@ -24,10 +24,26 @@
 
   // TODO повесить кастомизированный скролл
   &__info {
-    padding: 6px 18px;
+    padding: 18px;
     flex: 1 1 100%;
     height: 100%;
     overflow: auto;
+
+    &--small {
+      padding: 0 18px;
+    }
+  }
+
+  &__info-error {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--color-fuchsia)
   }
 
   &__btn-follow-wrapper {

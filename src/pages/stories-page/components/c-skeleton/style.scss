@@ -1,0 +1,42 @@
+@import "@/common/styles/size";
+@import "@/common/styles/minxins";
+
+.skeleton {
+  &__item {
+    background: var(--color-grey-3);
+    border-radius: var(--border-radius-very-small);
+    height: 14px;
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--width-full {
+      width: 100%;
+    }
+
+    &--width-big {
+      width: 80%;
+    }
+
+    &--width-middle {
+      width: 60%;
+    }
+
+    &--width-small {
+      width: 46%;
+    }
+
+    &--height-big {
+      height: 136px;
+      margin-bottom: 22px;
+    }
+  }
+
+  &__strokes-wrapper {
+    & + & {
+      margin-top: 18px;
+    }
+  }
+}

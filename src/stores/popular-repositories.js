@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import { getRepositoriesList } from "@/api/rest/repositories";
 import { MS_PER_WEEK } from "@/utils/consts";
+import { getReadmeRepo } from "@/api/rest/repo";
 
 const LANGUAGE = "javascript";
 
@@ -18,9 +19,9 @@ export const usePopularReposStore = defineStore("popular-repositories", {
       if (!this.totalCount || this.popularRepos.length < this.totalCount) {
         this.loading = true;
 
-        const qSearch = this.getQSearch();
+        const qSearch = getQSearch();
         const page = this.currentPage;
-        const offset = this.getOffsetPage();
+        const offset = getOffsetPage(this.currentPage);
 
         try {
           const response = await getRepositoriesList(qSearch, page, offset);
@@ -34,23 +35,47 @@ export const usePopularReposStore = defineStore("popular-repositories", {
         }
       }
     },
-    getOffsetPage() {
-      const startOffset = 11;
-      const offsetDownload = 5;
-      return this.currentPage === 1 ? startOffset : offsetDownload;
-    },
-    getQSearch() {
-      const dateWeekAgo = getDateWeekAgo();
-      return encodeURIComponent(
-        `clanguage:${LANGUAGE} created:>${dateWeekAgo}`
-      );
+    async fetchReadmeRepo(index, owner, repo) {
+      if (
+        !this.popularRepos[index].readme ||
+        this.popularRepos[index].readme.err
+      ) {
+        return getReadmeRepo(owner, repo)
+          .then((dataReadme) => {
+            const isError = typeof dataReadme !== "string";
+            if (!isError) {
+              this.popularRepos[index].readme = {
+                data: dataReadme,
+                err: null,
+              };
+            } else {
+              this.popularRepos[index].readme = {
+                data: null,
+                err: dataReadme,
+              };
+            }
+          })
+          .catch((err) => {
+            this.popularRepos[index].readme = {
+              data: null,
+              err: err,
+            };
+          });
+      }
     },
   },
 });
 
-const getDateWeekAgo = () => {
+function getOffsetPage(currentPage) {
+  const startOffset = 11;
+  const offsetDownload = 5;
+  return currentPage === 1 ? startOffset : offsetDownload;
+}
+
+function getQSearch() {
   const currentDate = new Date();
   const weekAgoMs = currentDate.getTime() - MS_PER_WEEK;
   const weekAgoDate = new Date(weekAgoMs);
-  return weekAgoDate.toLocaleDateString("en-ca");
-};
+  const dateWeekAgo = weekAgoDate.toLocaleDateString("en-ca");
+  return encodeURIComponent(`clanguage:${LANGUAGE} created:>${dateWeekAgo}`);
+}

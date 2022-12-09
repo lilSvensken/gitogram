@@ -37,7 +37,7 @@
 
 <script>
 import IconArrow from "@/assets/svg/icon-arrow.vue";
-import { getIssues } from "@/api/rest/owner";
+import { getIssues } from "@/api/rest/repo";
 import CLoader from "@/common/components/loader/loader.vue";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
 

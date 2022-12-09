@@ -6,6 +6,7 @@
       :space-between="12"
       :centered-slides="true"
       :navigation="true"
+      :keyboard="true"
       @swiper="onSwiper"
       @slideChange="slideChange"
     >
@@ -22,17 +23,18 @@
           :slideActive="slideActive"
         />
 
-        <div class="stories__info">
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
-          stories__info<br />stories__info<br />stories__info<br />stories__info<br />
+        <div
+          class="stories__info"
+          :class="{ ['stories__info--small']: repo.readme }"
+        >
+          <template v-if="repo.readme">
+            <div v-if="repo.readme.data" v-html="repo.readme.data" />
+            <div class="stories__info-error" v-if="repo.readme.err">
+              Ошибка загрузки
+            </div>
+          </template>
+
+          <c-skeleton v-if="!repo.readme" />
         </div>
 
         <div class="stories__btn-follow-wrapper">
@@ -45,7 +47,7 @@
 
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation, Pagination } from "swiper";
+import { Navigation, Pagination, Keyboard } from "swiper";
 import SlideHeader from "@/pages/stories-page/components/slide-header/slide-header.vue";
 import {
   MAX_PROGRESS_PERCENT,
@@ -54,10 +56,12 @@ import {
 } from "@/pages/stories-page/consts";
 import { usePopularReposStore } from "@/stores/popular-repositories";
 import { routerQuery } from "@/router/router-params";
+import CSkeleton from "@/pages/stories-page/components/c-skeleton/c-skeleton.vue";
 
 export default {
   name: "stories-page",
   components: {
+    CSkeleton,
     SlideHeader,
     Swiper,
     SwiperSlide,
@@ -74,7 +78,7 @@ export default {
     const store = usePopularReposStore();
     return {
       store,
-      modules: [Navigation, Pagination],
+      modules: [Navigation, Pagination, Keyboard],
     };
   },
   methods: {
@@ -89,8 +93,9 @@ export default {
     },
     slideChange() {
       this.slideActive = this.swiper.activeIndex;
-      this.startTimerAutoFlipping();
-      if (this.slideActive === this.store.popularRepos.length - 2) {
+      this.getReadme();
+      const countSlideRight = this.store.popularRepos.length - this.slideActive;
+      if (countSlideRight <= 3) {
         this.fetchMore();
       }
     },
@@ -105,22 +110,19 @@ export default {
       this.progressPercent = MIN_PROGRESS_PERCENT;
       clearInterval(this.progressInterval);
 
-      this.progressInterval = setInterval(() => {
-        if (!this.swiper.destroyed) {
+      if (!this.swiper.destroyed) {
+        this.progressInterval = setInterval(() => {
           this.progressPercent++;
           if (this.progressPercent === MAX_PROGRESS_PERCENT) {
             this.swiper.slideNext();
           }
-        } else {
-          clearInterval(this.progressInterval);
-        }
-      }, SPEED_CHANGE_SLIDE);
+        }, SPEED_CHANGE_SLIDE);
+      }
     },
     fetchMore(isInitProject) {
       this.store.fetchMorePopularRepos().then(() => {
         if (isInitProject && this.store.popularRepos.length) {
           this.slideTo();
-          this.startTimerAutoFlipping();
         }
         // достижение конечного элемента в списке на сервере
         if (
@@ -129,6 +131,14 @@ export default {
         ) {
           clearInterval(this.progressInterval);
         }
+      });
+    },
+    getReadme() {
+      const index = this.swiper.activeIndex;
+      const owner = this.store.popularRepos[index].owner.login;
+      const repo = this.store.popularRepos[index].name;
+      this.store.fetchReadmeRepo(index, owner, repo).then(() => {
+        this.startTimerAutoFlipping();
       });
     },
   },

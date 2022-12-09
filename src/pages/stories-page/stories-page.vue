@@ -7,7 +7,7 @@
       :centered-slides="true"
       :navigation="true"
       @swiper="onSwiper"
-      @slideChange="setActiveSlide"
+      @slideChange="slideChange"
     >
       <swiper-slide
         v-for="(repo, index) in store.popularRepos"
@@ -18,6 +18,7 @@
         <slide-header
           :progressPercent="progressPercent"
           :index="index"
+          :owner="repo.owner"
           :slideActive="slideActive"
         />
 
@@ -79,10 +80,14 @@ export default {
   methods: {
     onSwiper(swiper) {
       this.swiper = swiper;
-      this.startTimerAutoFlipping();
-      this.slideTo();
+      if (!this.store.popularRepos.length) {
+        this.fetchMore(true);
+      } else {
+        this.slideTo();
+        this.startTimerAutoFlipping();
+      }
     },
-    setActiveSlide() {
+    slideChange() {
       this.slideActive = this.swiper.activeIndex;
       this.startTimerAutoFlipping();
       if (this.slideActive === this.store.popularRepos.length - 2) {
@@ -111,8 +116,12 @@ export default {
         }
       }, SPEED_CHANGE_SLIDE);
     },
-    fetchMore() {
+    fetchMore(isInitProject) {
       this.store.fetchMorePopularRepos().then(() => {
+        if (isInitProject && this.store.popularRepos.length) {
+          this.slideTo();
+          this.startTimerAutoFlipping();
+        }
         // достижение конечного элемента в списке на сервере
         if (
           this.store.totalCount &&

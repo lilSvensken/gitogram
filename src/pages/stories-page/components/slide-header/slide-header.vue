@@ -9,12 +9,12 @@
 
     <router-link to="/" class="slide-header__user-info">
       <img
-        src="@/assets/mock/img/avatar-11.png"
-        alt="React.reposit"
+        :src="owner.avatarUrl"
+        :alt="owner.login"
         class="slide-header__avatar"
       />
 
-      <div class="slide-header__login">React.reposit</div>
+      <div class="slide-header__login">{{ owner.login }}</div>
     </router-link>
   </div>
 </template>
@@ -27,7 +27,7 @@ import {
 
 export default {
   name: "slide-header",
-  props: ["progressPercent", "index", "slideActive"],
+  props: ["progressPercent", "index", "slideActive", "owner"],
   computed: {
     getProgressPercent() {
       if (this.index === this.slideActive) {

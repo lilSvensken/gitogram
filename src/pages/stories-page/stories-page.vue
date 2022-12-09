@@ -137,6 +137,8 @@ export default {
       const index = this.swiper.activeIndex;
       const owner = this.store.popularRepos[index].owner.login;
       const repo = this.store.popularRepos[index].name;
+      this.progressPercent = 0;
+      clearInterval(this.progressInterval);
       this.store.fetchReadmeRepo(index, owner, repo).then(() => {
         this.startTimerAutoFlipping();
       });

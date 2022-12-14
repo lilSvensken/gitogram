@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { routerParams, routerQuery } from "@/router/router-params";
+import { routerParams, routerQuery } from "@/enums/router-params";
+import { errors } from "@/enums/errors";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const router = createRouter({
       component: () => import("@/pages/stories-page/stories-page.vue"),
     },
     {
+      path: `/${routerParams.auth}`,
+      name: routerParams.auth,
+      component: () => import("@/pages/auth-page/auth-page.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       redirect: { name: routerParams.repositoriesList },
     },
@@ -34,4 +40,30 @@ const router = createRouter({
     return { top: 0 };
   },
 });
+
+router.beforeEach(async (to, from, next) => {
+  const authRoute = to.name === routerParams.auth;
+  if (authRoute) {
+    next();
+    return;
+  }
+
+  try {
+    const response = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `token ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (response.status === errors.unauthorized) {
+      // TODO возможно обработать визуальное состояние ошибки "Не авторизован"
+      console.log("Не авторизован");
+      throw new Error();
+    }
+    next();
+  } catch (error) {
+    next({ name: routerParams.auth });
+  }
+});
+
 export default router;

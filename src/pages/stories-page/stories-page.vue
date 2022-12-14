@@ -55,7 +55,7 @@ import {
   SPEED_CHANGE_SLIDE,
 } from "@/pages/stories-page/consts";
 import { usePopularReposStore } from "@/stores/popular-repositories";
-import { routerQuery } from "@/router/router-params";
+import { routerQuery } from "@/enums/router-params";
 import CSkeleton from "@/pages/stories-page/components/c-skeleton/c-skeleton.vue";
 
 export default {

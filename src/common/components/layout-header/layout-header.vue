@@ -42,7 +42,7 @@ import IconLogo from "@/assets/svg/icon-logo.vue";
 import IconHome from "@/assets/svg/icon-home.vue";
 import IconExit from "@/assets/svg/icon-exit.vue";
 import StoriesList from "@/common/components/layout-header/components/stories-list/stories-list.vue";
-import { routerParams } from "@/router/router-params";
+import { routerParams } from "@/enums/router-params";
 import IconClose from "@/assets/svg/icon-close.vue";
 
 export default {

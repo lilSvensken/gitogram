@@ -4,15 +4,17 @@
     <div class="layout-content">
       <router-view />
     </div>
+    <layout-footer />
   </div>
 </template>
 
 <script>
 import LayoutHeader from "@/common/components/layout-header/layout-header.vue";
+import LayoutFooter from "@/common/components/layout-footer/layout-footer.vue";
 
 export default {
   name: "CApp",
-  components: { LayoutHeader },
+  components: { LayoutFooter, LayoutHeader },
 };
 </script>
 

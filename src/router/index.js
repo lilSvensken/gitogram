@@ -25,10 +25,10 @@ const router = createRouter({
       name: routerParams.auth,
       component: () => import("@/pages/auth-page/auth-page.vue"),
     },
-    {
-      path: "/:pathMatch(.*)*",
-      redirect: { name: routerParams.repositoriesList },
-    },
+    // {
+    //   path: "/:pathMatch(.*)*",
+    //   redirect: { name: routerParams.repositoriesList },
+    // },
   ],
   scrollBehavior: function (to) {
     if (to.hash) {
@@ -42,12 +42,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const authRoute = to.name === routerParams.auth;
-  if (authRoute) {
-    next();
-    return;
-  }
-
+  // TODO здесь все в тестах, приберу и вынесу все токены и запросы позже
   try {
     const response = await fetch("https://api.github.com/user", {
       headers: {
@@ -55,7 +50,17 @@ router.beforeEach(async (to, from, next) => {
       },
     });
 
-    if (response.status === errors.unauthorized) {
+    const authPage = to.name === routerParams.auth;
+    const userAuthorized = response.status !== errors.unauthorized;
+
+    // если втроризованный юзер на Авторизации - редирект на главную
+    if (authPage && userAuthorized) {
+      next({ name: routerParams.repositoriesList });
+      return;
+    }
+
+    // если неавторизованный пользователь в приложении - редирект на стр.Авториз
+    if (!authPage && !userAuthorized) {
       // TODO возможно обработать визуальное состояние ошибки "Не авторизован"
       console.log("Не авторизован");
       throw new Error();

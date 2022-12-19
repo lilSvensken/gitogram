@@ -54,7 +54,7 @@ export default {
         .then((response) => {
           const { token } = response;
           localStorage.setItem("token", token);
-          this.$router.replace({ name: routerParams.repositoriesList });
+          this.$router.replace({ name: routerParams.favourites });
         })
         .catch((error) => {
           // todo обработать ошибку

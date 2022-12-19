@@ -1,5 +1,5 @@
 export const routerParams = {
-  repositoriesList: "repositories-list",
+  favourites: "favourites",
   stories: "stories",
   auth: "auth",
 };

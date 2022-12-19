@@ -39,7 +39,7 @@
       </div>
 
       <div class="repository__control-info">
-        {{ repo.forksCount }}
+        {{ onFormatStarsCount(repo.forksCount) }}
       </div>
     </div>
   </div>

@@ -7,10 +7,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: `/${routerParams.repositoriesList}`,
-      name: routerParams.repositoriesList,
-      component: () =>
-        import("@/pages/repositories-list/repositories-list.vue"),
+      path: `/${routerParams.favourites}`,
+      name: routerParams.favourites,
+      component: () => import("@/pages/favourites-page/favourites-page.vue"),
     },
     {
       path: `/${routerParams.stories}/:${routerQuery.id}`,
@@ -37,7 +36,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   getUser()
     .then((data) => {
-      const defaultPageName = routerParams.repositoriesList;
+      const defaultPageName = routerParams.favourites;
 
       if (to.name) {
         const authPage = to.name === routerParams.auth;

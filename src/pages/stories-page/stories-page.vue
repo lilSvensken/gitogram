@@ -54,7 +54,7 @@ import {
   MIN_PROGRESS_PERCENT,
   SPEED_CHANGE_SLIDE,
 } from "@/pages/stories-page/consts";
-import { usePopularReposStore } from "@/stores/popular-repositories";
+import { usePopularReposStore } from "@/stores/popular-repositories.store";
 import { routerQuery } from "@/enums/router-params";
 import CSkeleton from "@/pages/stories-page/components/c-skeleton/c-skeleton.vue";
 

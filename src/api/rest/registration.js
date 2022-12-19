@@ -1,12 +1,13 @@
 import { makeRequest } from "@/api/requests";
-
+/** Регистарция в текущем OAuth
+ * @param {String} clientId - из OAuth (устанавливается в настройках GitHub автора этого проекта)
+ * @param {String} code - код который вернет вам github после авторизиции пользователя
+ * @param {String} clientSecret - из OAuth (устанавливается в настройках GitHub автора этого проекта)
+ * */
 export const registration = (clientId, code, clientSecret) => {
   return makeRequest(
     {
       url: `/github`,
-      headers: {
-        accept: "application/vnd.github.v3.html+json",
-      },
       method: "POST",
       data: {
         clientId,

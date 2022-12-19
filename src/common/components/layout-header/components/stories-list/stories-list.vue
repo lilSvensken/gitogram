@@ -46,7 +46,7 @@ import {
   getIsNavigation,
   getSpaceBetween,
 } from "@/common/components/layout-header/components/stories-list/computeds";
-import { usePopularReposStore } from "@/stores/popular-repositories";
+import { usePopularReposStore } from "@/stores/popular-repositories.store";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
 import { routerParams } from "@/enums/router-params";
 import CLoader from "@/common/components/layout-header/components/stories-list/components/c-loader/c-loader.vue";

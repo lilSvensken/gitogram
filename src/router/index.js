@@ -6,15 +6,11 @@ import { getUser } from "@/api/rest/user";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: "/repositories-list",
-    //   name: "repositories-list",
-    //   component: () => import("@/pages/repositories-list/repositories-list.vue"),
-    // },
     {
       path: `/${routerParams.repositoriesList}`,
       name: routerParams.repositoriesList,
-      component: () => import("@/pages/secondary-page/secondary-page.vue"),
+      component: () =>
+        import("@/pages/repositories-list/repositories-list.vue"),
     },
     {
       path: `/${routerParams.stories}/:${routerQuery.id}`,

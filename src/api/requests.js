@@ -13,6 +13,11 @@ export function makeRequest(
   },
   isLocalRequest = false
 ) {
+  const token = localStorage.getItem("token");
+  if (token) {
+    headers.Authorization = `token ${token}`;
+  }
+
   return axios({
     baseURL: isLocalRequest ? LOCAL_API_URL : GITHUB_API_URL,
     url,

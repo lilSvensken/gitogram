@@ -1,5 +1,11 @@
 <template>
-  <headeR class="header" :class="{ ['header--black']: isPreviewBlack }">
+  <header
+    class="header"
+    :class="{
+      ['header--black']: isPreviewBlack,
+      ['header--with-stories']: isShowStoriesList,
+    }"
+  >
     <div class="page-content">
       <div class="header__content">
         <router-link to="/" class="header__logo-link">
@@ -18,24 +24,22 @@
         </button>
       </div>
     </div>
-
-    <stories-list v-if="isShowRepositoriesList" />
-  </headeR>
+  </header>
 </template>
 
 <script>
 import IconLogo from "@/assets/svg/icon-logo.vue";
-import StoriesList from "@/common/components/layout-header/components/stories-list/stories-list.vue";
 import { routerParams } from "@/enums/router-params";
 import IconClose from "@/assets/svg/icon-close.vue";
 import UserPanel from "@/common/components/layout-header/components/user-panel/user-panel.vue";
 
 export default {
   name: "layout-header",
+  props: ["isShowStoriesList"],
   components: {
     UserPanel,
     IconClose,
-    StoriesList,
+
     IconLogo,
   },
   methods: {
@@ -44,14 +48,8 @@ export default {
     },
   },
   computed: {
-    isShowRepositoriesList() {
-      return this.$route.name === routerParams.repositoriesList;
-    },
     isPreviewBlack() {
       return this.$route.name === routerParams.stories;
-    },
-    isAuthPage() {
-      return this.$route.name === routerParams.auth;
     },
   },
 };

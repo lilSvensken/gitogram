@@ -5,7 +5,13 @@
   padding: 42px 0;
   background-color: var(--color-grey-1);
   box-shadow: var(--box-shadow-main);
-  border-bottom-color: 1px solid var(--color-grey-3);
+  border-bottom: 1px solid var(--color-grey-3);
+
+  &--with-stories {
+    padding-bottom: 0;
+    border-bottom: 0;
+    box-shadow: none;
+  }
 
   @include for-tb-down {
     padding: 30px 0 46px;

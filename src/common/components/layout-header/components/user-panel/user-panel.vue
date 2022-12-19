@@ -19,7 +19,7 @@
 <script>
 import IconExit from "@/assets/svg/icon-exit.vue";
 import IconHome from "@/assets/svg/icon-home.vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/user.store";
 import { routerParams } from "@/enums/router-params";
 
 export default {

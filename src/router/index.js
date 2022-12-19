@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { routerParams, routerQuery } from "@/enums/router-params";
 import { errors } from "@/enums/errors";
-import { checkAuthorize } from "@/api/rest/authorizeGithub";
+import { getUser } from "@/api/rest/user";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,13 +39,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  checkAuthorize()
+  getUser()
     .then((data) => {
       const defaultPageName = routerParams.repositoriesList;
 
       if (to.name) {
         const authPage = to.name === routerParams.auth;
-        const userAuthorized = data.response?.status !== errors.unauthorized;
+        const userAuthorized = data?.response?.status !== errors.unauthorized;
 
         // если автроризованный юзер на Авторизации - редирект на главную
         if (authPage && userAuthorized) {
@@ -63,8 +63,6 @@ router.beforeEach((to, from, next) => {
       }
     })
     .catch(() => {
-      // TODO обрабоать ошибку "Не авторизован"
-      console.log("Не авторизован");
       next({ name: routerParams.auth });
     });
 });

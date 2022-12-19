@@ -1,26 +1,12 @@
 <template>
-  <header class="header" :class="{ ['header--black']: isPreviewBlack }">
+  <headeR class="header" :class="{ ['header--black']: isPreviewBlack }">
     <div class="page-content">
       <div class="header__content">
         <router-link to="/" class="header__logo-link">
           <icon-logo class="header__logo" />
         </router-link>
 
-        <div v-if="!isPreviewBlack" class="header__btns-wrapper">
-          <button type="button" class="header__btn">
-            <icon-home class="header__btn-icon" />
-          </button>
-          <button type="button" class="header__btn">
-            <img
-              src="@/assets/mock/img/avatar-11.png"
-              alt="auth"
-              class="header__img-avatar"
-            />
-          </button>
-          <button type="button" class="header__btn">
-            <icon-exit class="header__btn-icon" />
-          </button>
-        </div>
+        <user-panel v-if="!isPreviewBlack" />
 
         <button
           v-if="isPreviewBlack"
@@ -33,32 +19,39 @@
       </div>
     </div>
 
-    <stories-list v-if="isShowStoriesList" />
-  </header>
+    <stories-list v-if="isShowRepositoriesList" />
+  </headeR>
 </template>
 
 <script>
 import IconLogo from "@/assets/svg/icon-logo.vue";
-import IconHome from "@/assets/svg/icon-home.vue";
-import IconExit from "@/assets/svg/icon-exit.vue";
 import StoriesList from "@/common/components/layout-header/components/stories-list/stories-list.vue";
 import { routerParams } from "@/enums/router-params";
 import IconClose from "@/assets/svg/icon-close.vue";
+import UserPanel from "@/common/components/layout-header/components/user-panel/user-panel.vue";
 
 export default {
   name: "layout-header",
-  components: { IconClose, StoriesList, IconExit, IconHome, IconLogo },
+  components: {
+    UserPanel,
+    IconClose,
+    StoriesList,
+    IconLogo,
+  },
   methods: {
     onClose() {
       this.$router.go(-1);
     },
   },
   computed: {
-    isShowStoriesList() {
+    isShowRepositoriesList() {
       return this.$route.name === routerParams.repositoriesList;
     },
     isPreviewBlack() {
       return this.$route.name === routerParams.stories;
+    },
+    isAuthPage() {
+      return this.$route.name === routerParams.auth;
     },
   },
 };

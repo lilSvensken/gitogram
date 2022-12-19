@@ -34,7 +34,7 @@ import IconLogo from "@/assets/svg/icon-logo.vue";
 import IconGithub from "@/assets/svg/icon-github.vue";
 import { routerParams } from "@/enums/router-params";
 import { registration } from "@/api/rest/registration";
-import { authorizeGithub } from "@/api/rest/authorizeGithub";
+import { authGitHub } from "@/api/rest/auth";
 import env from "/env.js";
 import CLoader from "@/common/components/loader/loader.vue";
 
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     getCode() {
-      authorizeGithub(env.clientId);
+      authGitHub(env.clientId);
     },
   },
 };

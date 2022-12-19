@@ -2,8 +2,12 @@
 @import "@/common/styles/minxins";
 
 .auth {
-  height: 100vh;
+  height: 100%;
   padding: 40px 0;
+
+  &__page-content {
+    height: 100%;
+  }
 
   &__content {
     display: flex;
@@ -50,5 +54,12 @@
     transform: translateX(44%);
     height: 60vh;
     object-fit: contain;
+  }
+
+  &__loader {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

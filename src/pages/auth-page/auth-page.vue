@@ -1,9 +1,8 @@
 <template>
   <div class="auth">
-    <div class="page-content">
-      <div class="auth__content">
+    <div class="auth__page-content page-content">
+      <div v-if="!isCode" class="auth__content">
         <div class="auth__header">
-          <button @click="getUser">GetUser</button>
           <icon-logo class="auth__logo" />
           <div class="auth__subtitle">
             More than just one repository. This is our digital world.
@@ -22,6 +21,10 @@
           />
         </div>
       </div>
+
+      <div class="auth__loader">
+        <c-loader v-if="isCode"></c-loader>
+      </div>
     </div>
   </div>
 </template>
@@ -30,69 +33,38 @@
 import IconLogo from "@/assets/svg/icon-logo.vue";
 import IconGithub from "@/assets/svg/icon-github.vue";
 import { routerParams } from "@/enums/router-params";
+import { registration } from "@/api/rest/registration";
+import { authorizeGithub } from "@/api/rest/authorizeGithub";
+import env from "/env.js";
+import CLoader from "@/common/components/loader/loader.vue";
 
-const clientId = "7122eb36b46496384643";
-const clientSecret = "8ec491f725fb9dfe0160e7f14b610f781476144a";
-// TODO здесь все в тестах, приберу и вынесу все токены и запросы позже
 export default {
   name: "auth-page",
-  components: { IconGithub, IconLogo },
-  async created() {
+  components: { CLoader, IconGithub, IconLogo },
+  data() {
+    return {
+      isCode: true,
+    };
+  },
+  created() {
     const code = new URLSearchParams(window.location.search).get("code");
-
+    this.isCode = !!code;
     if (code) {
-      try {
-        const response = await fetch(
-          "https://webdev-api.loftschool.com/github",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              clientId,
-              code,
-              clientSecret,
-            }),
-          }
-        );
-
-        const { token } = await response.json();
-
-        localStorage.setItem("token", token);
-        this.$router.replace({ name: routerParams.repositoriesList });
-
-        console.log(token);
-      } catch (error) {
-        // todo обраотать ошибку
-        console.log(error);
-      }
+      registration(env.clientId, code, env.clientSecret)
+        .then((response) => {
+          const { token } = response;
+          localStorage.setItem("token", token);
+          this.$router.replace({ name: routerParams.repositoriesList });
+        })
+        .catch((error) => {
+          // todo обработать ошибку
+          console.log(error);
+        });
     }
   },
   methods: {
     getCode() {
-      const githubAuthApi = "https://github.com/login/oauth/authorize";
-      const params = new URLSearchParams();
-
-      params.append("client_id", clientId);
-      params.append("scope", "repo:status read:user");
-
-      window.location.href = `${githubAuthApi}?${params}`;
-    },
-    async getUser() {
-      try {
-        const response = await fetch("https://api.github.com/user", {
-          headers: {
-            Authorization: `token ${localStorage.getItem("token")}`,
-          },
-        });
-        const data = await response.json();
-
-        console.log(data);
-      } catch (error) {
-        // todo обраотать ошибку
-        console.log(error);
-      }
+      authorizeGithub(env.clientId);
     },
   },
 };

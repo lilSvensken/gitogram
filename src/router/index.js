@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { routerParams, routerQuery } from "@/enums/router-params";
 import { errors } from "@/enums/errors";
+import { checkAuthorize } from "@/api/rest/authorizeGithub";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,10 +26,6 @@ const router = createRouter({
       name: routerParams.auth,
       component: () => import("@/pages/auth-page/auth-page.vue"),
     },
-    // {
-    //   path: "/:pathMatch(.*)*",
-    //   redirect: { name: routerParams.repositoriesList },
-    // },
   ],
   scrollBehavior: function (to) {
     if (to.hash) {
@@ -41,34 +38,35 @@ const router = createRouter({
   },
 });
 
-router.beforeEach(async (to, from, next) => {
-  // TODO здесь все в тестах, приберу и вынесу все токены и запросы позже
-  try {
-    const response = await fetch("https://api.github.com/user", {
-      headers: {
-        Authorization: `token ${localStorage.getItem("token")}`,
-      },
-    });
+router.beforeEach((to, from, next) => {
+  checkAuthorize()
+    .then((data) => {
+      const defaultPageName = routerParams.repositoriesList;
 
-    const authPage = to.name === routerParams.auth;
-    const userAuthorized = response.status !== errors.unauthorized;
+      if (to.name) {
+        const authPage = to.name === routerParams.auth;
+        const userAuthorized = data.response?.status !== errors.unauthorized;
 
-    // если втроризованный юзер на Авторизации - редирект на главную
-    if (authPage && userAuthorized) {
-      next({ name: routerParams.repositoriesList });
-      return;
-    }
+        // если автроризованный юзер на Авторизации - редирект на главную
+        if (authPage && userAuthorized) {
+          next({ name: defaultPageName });
+          return;
+        }
 
-    // если неавторизованный пользователь в приложении - редирект на стр.Авториз
-    if (!authPage && !userAuthorized) {
-      // TODO возможно обработать визуальное состояние ошибки "Не авторизован"
+        // если неавторизованный пользователь в приложении - редирект на стр.Авториз
+        if (!authPage && !userAuthorized) {
+          throw new Error();
+        }
+        next();
+      } else {
+        next({ name: defaultPageName });
+      }
+    })
+    .catch(() => {
+      // TODO обрабоать ошибку "Не авторизован"
       console.log("Не авторизован");
-      throw new Error();
-    }
-    next();
-  } catch (error) {
-    next({ name: routerParams.auth });
-  }
+      next({ name: routerParams.auth });
+    });
 });
 
 export default router;

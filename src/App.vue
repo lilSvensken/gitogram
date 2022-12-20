@@ -1,11 +1,14 @@
 <template>
-  <div class="layout-container">
+  <div
+    class="layout-container"
+    :class="{ ['layout-container--overflow-height']: isOverflowFullHeight }"
+  >
     <layout-header :isShowStoriesList="isShowStoriesList" />
     <stories-list v-if="isShowStoriesList" />
     <div class="layout-content">
       <router-view />
     </div>
-    <layout-footer />
+    <layout-footer v-if="isShowFooter" />
   </div>
 </template>
 
@@ -22,6 +25,12 @@ export default {
     isShowStoriesList() {
       return this.$route.name === routerParams.favourites;
     },
+    isShowFooter() {
+      return this.$route.name !== routerParams.stories;
+    },
+    isOverflowFullHeight() {
+      return this.$route.name === routerParams.stories;
+    },
   },
 };
 </script>
@@ -33,6 +42,10 @@ export default {
   display: grid;
   grid-template-rows: auto 1fr auto;
   position: relative;
+
+  &--overflow-height {
+    height: 100%;
+  }
 }
 
 .layout-content {

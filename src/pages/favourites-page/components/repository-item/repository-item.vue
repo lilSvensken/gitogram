@@ -63,7 +63,7 @@ export default {
   props: ["repo"],
   data() {
     return {
-      isStarred: true,
+      isStarred: false,
     };
   },
   methods: {

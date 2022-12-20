@@ -2,6 +2,10 @@
 @import "@/common/styles/minxins";
 
 .skeleton {
+  &--small {
+    max-width: 500px;
+  }
+
   &__item {
     background: var(--color-grey-3);
     border-radius: var(--border-radius-very-small);

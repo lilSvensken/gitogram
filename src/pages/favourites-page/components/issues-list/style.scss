@@ -35,12 +35,16 @@
     }
   }
 
-  &__issues-list {
+  &__issues-list-container {
     padding-top: 10px;
 
     &:not(.mod-show) {
       display: none;
     }
+  }
+
+  &__issues-list {
+    @include resetBaseStyles;
   }
 
   &__issues-item {

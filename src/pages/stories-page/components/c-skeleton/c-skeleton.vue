@@ -22,4 +22,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="./style.scss" />
+<style scoped lang="scss" src="@/common/styles/skeleton.scss" />

@@ -21,6 +21,11 @@ const router = createRouter({
       name: routerParams.auth,
       component: () => import("@/pages/auth-page/auth-page.vue"),
     },
+    {
+      path: `/${routerParams.lk}`,
+      name: routerParams.lk,
+      component: () => import("@/pages/lk-page/lk-page.vue"),
+    },
   ],
   scrollBehavior: function (to) {
     if (to.hash) {

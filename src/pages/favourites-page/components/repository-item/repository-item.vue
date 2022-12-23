@@ -1,7 +1,7 @@
 <template>
   <div class="repository">
     <div class="repository__news">
-      <a :href="repo.svnUrl" target="_blank" class="repository__title">
+      <a :href="repo.svnUrl" target="_blank" class="repository__title title">
         {{ repo.name }}
       </a>
       <p class="repository__text" v-html="repo.description"></p>

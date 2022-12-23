@@ -10,7 +10,7 @@
           <owner-link :owner="favorite.owner" />
           <repository-item :repo="favorite" />
           <issues-list v-if="favorite.openIssuesCount" :repo="favorite" />
-          <c-date :date="favorite.updatedAt" />
+          <c-date :date="favorite.createdAt" />
         </li>
       </ul>
 
@@ -37,7 +37,6 @@ import IssuesList from "@/pages/favourites-page/components/issues-list/issues-li
 import CDate from "@/pages/favourites-page/components/c-date/c-date.vue";
 import { useFavouritesReposStore } from "@/stores/favourites-repos.store";
 
-// TODO ПОЛУЧАЮ НЕ ТЕ ДАННЫЕ ПЕРЕДЕЛАТЬ
 export default {
   name: "favourites-page",
   components: {

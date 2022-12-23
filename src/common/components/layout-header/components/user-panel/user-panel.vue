@@ -3,13 +3,13 @@
     <router-link to="" class="user-panel__btn">
       <icon-home class="user-panel__btn-icon" />
     </router-link>
-    <a :href="store.user.htmlUrl" target="_blank" class="user-panel__btn">
+    <router-link :to="getLkLink" class="user-panel__btn">
       <img
         :src="store.user.avatarUrl"
         alt="auth"
         class="user-panel__img-avatar"
       />
-    </a>
+    </router-link>
     <button type="button" class="user-panel__btn" @click="onExit">
       <icon-exit class="user-panel__btn-icon" />
     </button>
@@ -46,6 +46,11 @@ export default {
       localStorage.removeItem("token");
       this.$router.replace({ name: routerParams.auth });
       this.store.clearUser();
+    },
+  },
+  computed: {
+    getLkLink() {
+      return routerParams.lk;
     },
   },
 };

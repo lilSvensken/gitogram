@@ -35,3 +35,14 @@
     max-width: calc(980px + var(--page-content-padding) * 2);
   }
 }
+
+.title {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 28px;
+
+  @include for-ip-down {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

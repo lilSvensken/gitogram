@@ -1,0 +1,51 @@
+@import "@/common/styles/size";
+@import "@/common/styles/minxins";
+
+.following {
+  &__list {
+    @include resetBaseStyles;
+  }
+
+  &__item {
+    @include resetBaseStyles;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & + & {
+      margin-top: 32px;
+    }
+  }
+
+  &__item-info {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  &__item-img {
+    width: 72px;
+    height: 72px;
+    margin-right: 18px;
+    border-radius: 100%;
+  }
+
+  &__item-login {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.1px;
+    margin-bottom: 6px;
+  }
+
+  &__item-name {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-grey-4);
+  }
+
+  &__item-btn {
+    width: 116px;
+  }
+}

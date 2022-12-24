@@ -32,7 +32,7 @@
 import CLoader from "@/common/components/loader/loader.vue";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
 import OwnerLink from "@/pages/favourites-page/components/owner-link/owner-link.vue";
-import RepositoryItem from "@/pages/favourites-page/components/repository-item/repository-item.vue";
+import RepositoryItem from "@/common/components/repository-item/repository-item.vue";
 import IssuesList from "@/pages/favourites-page/components/issues-list/issues-list.vue";
 import CDate from "@/pages/favourites-page/components/c-date/c-date.vue";
 import { useFavouritesReposStore } from "@/stores/favourites-repos.store";

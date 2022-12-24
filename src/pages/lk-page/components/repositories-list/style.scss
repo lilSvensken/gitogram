@@ -1,2 +1,16 @@
 @import "@/common/styles/size";
 @import "@/common/styles/minxins";
+
+.repositories-list {
+  &__list {
+    @include resetBaseStyles;
+  }
+
+  &__item-wrapper {
+    @include resetBaseStyles;
+
+    & + & {
+      margin-top: 18px;
+    }
+  }
+}

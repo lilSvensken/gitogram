@@ -55,7 +55,7 @@ import {
   SPEED_CHANGE_SLIDE,
 } from "@/pages/stories-page/consts";
 import { usePopularReposStore } from "@/stores/popular-repositories.store";
-import { routerQuery } from "@/enums/router-params";
+import { RouterQuery } from "@/enums/router-params";
 import CSkeleton from "@/pages/stories-page/components/c-skeleton/c-skeleton.vue";
 
 export default {
@@ -100,7 +100,7 @@ export default {
       }
     },
     slideTo() {
-      const itemId = +this.$route.params[routerQuery.id];
+      const itemId = +this.$route.params[RouterQuery.id];
       const activeIndex = this.store.popularRepos.findIndex(
         (item) => item.id === itemId
       );

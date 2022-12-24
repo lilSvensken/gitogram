@@ -29,7 +29,7 @@
 
 <script>
 import IconLogo from "@/assets/svg/icon-logo.vue";
-import { routerParams } from "@/enums/router-params";
+import { RouterParams } from "@/enums/router-params";
 import IconClose from "@/assets/svg/icon-close.vue";
 import UserPanel from "@/common/components/layout-header/components/user-panel/user-panel.vue";
 
@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     isPreviewBlack() {
-      return this.$route.name === routerParams.stories;
+      return this.$route.name === RouterParams.stories;
     },
   },
 };

@@ -16,20 +16,20 @@
 import LayoutHeader from "@/common/components/layout-header/layout-header.vue";
 import LayoutFooter from "@/common/components/layout-footer/layout-footer.vue";
 import StoriesList from "@/common/components/stories-list/stories-list.vue";
-import { routerParams } from "@/enums/router-params";
+import { RouterParams } from "@/enums/router-params";
 
 export default {
   name: "CApp",
   components: { LayoutFooter, LayoutHeader, StoriesList },
   computed: {
     isShowStoriesList() {
-      return this.$route.name === routerParams.favourites;
+      return this.$route.name === RouterParams.favourites;
     },
     isShowFooter() {
-      return this.$route.name !== routerParams.stories;
+      return this.$route.name !== RouterParams.stories;
     },
     isOverflowFullHeight() {
-      return this.$route.name === routerParams.stories;
+      return this.$route.name === RouterParams.stories;
     },
   },
 };

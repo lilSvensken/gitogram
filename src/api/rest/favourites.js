@@ -1,9 +1,19 @@
 import { makeRequest } from "@/api/requests";
+import { getQueryParamsStr } from "@/utils/get-query-params-str";
+
 /** поулчение репозиториев, лайкнутых пользователем
+ * @param { Number } page - номер страницы
+ * @param { Number } offset - количество получаемых элементов
  * */
 export const getFavouritesRepos = (page, offset) => {
+  let urlRequest = "/user/starred";
+  const queries = {};
+  if (page) queries["page"] = page;
+  if (offset) queries["per_page"] = offset;
+  urlRequest += getQueryParamsStr(queries);
+
   return makeRequest({
-    url: `/user/starred?page=${page}&per_page=${offset}`,
+    url: urlRequest,
     method: "GET",
   });
 };

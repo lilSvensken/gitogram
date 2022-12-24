@@ -12,13 +12,19 @@ export const useFavouritesReposStore = defineStore("favourites-repos", {
     currentPage: 1,
   }),
   actions: {
-    async getFavouritesList() {
+    async getFavouritesList(isFullList) {
       if (!this.isLastPage) {
         this.loading = true;
         const page = this.currentPage;
 
         try {
-          const response = await getFavouritesRepos(page, OFFSET);
+          let response;
+          if (isFullList) {
+            response = await getFavouritesRepos();
+          } else {
+            response = await getFavouritesRepos(page, OFFSET);
+          }
+
           if (response) {
             this.currentPage++;
             this.favouritesList.push(...response);

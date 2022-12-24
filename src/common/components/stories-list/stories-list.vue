@@ -48,7 +48,7 @@ import {
 } from "@/common/components/stories-list/computeds";
 import { usePopularReposStore } from "@/stores/popular-repositories.store";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
-import { routerParams } from "@/enums/router-params";
+import { RouterParams } from "@/enums/router-params";
 import CLoader from "@/common/components/stories-list/components/c-loader/c-loader.vue";
 
 export default {
@@ -95,7 +95,7 @@ export default {
       });
     },
     getStoryUrl(id) {
-      return `/${routerParams.stories}/${id}`;
+      return `/${RouterParams.stories}/${id}`;
     },
   },
   computed: {

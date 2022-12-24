@@ -20,7 +20,7 @@
 import IconExit from "@/assets/svg/icon-exit.vue";
 import IconHome from "@/assets/svg/icon-home.vue";
 import { useUserStore } from "@/stores/user.store";
-import { routerParams } from "@/enums/router-params";
+import { RouterParams } from "@/enums/router-params";
 
 export default {
   name: "user-panel",
@@ -35,7 +35,7 @@ export default {
   watch: {
     "$route.name"(name) {
       if (!this.store.user) {
-        if (name !== routerParams.auth) {
+        if (name !== RouterParams.auth) {
           this.store.getUser();
         }
       }
@@ -44,13 +44,13 @@ export default {
   methods: {
     onExit() {
       localStorage.removeItem("token");
-      this.$router.replace({ name: routerParams.auth });
+      this.$router.replace({ name: RouterParams.auth });
       this.store.clearUser();
     },
   },
   computed: {
     getLkLink() {
-      return routerParams.lk;
+      return RouterParams.lk;
     },
   },
 };

@@ -32,7 +32,7 @@
 <script>
 import IconLogo from "@/assets/svg/icon-logo.vue";
 import IconGithub from "@/assets/svg/icon-github.vue";
-import { routerParams } from "@/enums/router-params";
+import { RouterParams } from "@/enums/router-params";
 import { registration } from "@/api/rest/registration";
 import { authGitHub } from "@/api/rest/auth";
 import env from "/env.js";
@@ -54,7 +54,7 @@ export default {
         .then((response) => {
           const { token } = response;
           localStorage.setItem("token", token);
-          this.$router.replace({ name: routerParams.favourites });
+          this.$router.replace({ name: RouterParams.favourites });
         })
         .catch((error) => {
           // todo обработать ошибку

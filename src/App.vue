@@ -1,9 +1,12 @@
 <template>
   <div
     class="layout-container"
-    :class="{ ['layout-container--overflow-height']: isOverflowFullHeight }"
+    :class="{
+      ['layout-container--overflow-height']: isOverflowFullHeight,
+      ['layout-container--no-header']: !isShowHeader,
+    }"
   >
-    <layout-header :isShowStoriesList="isShowStoriesList" />
+    <layout-header v-if="isShowHeader" :isShowStoriesList="isShowStoriesList" />
     <stories-list v-if="isShowStoriesList" />
     <div class="layout-content">
       <router-view />
@@ -22,6 +25,9 @@ export default {
   name: "CApp",
   components: { LayoutFooter, LayoutHeader, StoriesList },
   computed: {
+    isShowHeader() {
+      return this.$route.name !== RouterParams.auth;
+    },
     isShowStoriesList() {
       return this.$route.name === RouterParams.favourites;
     },
@@ -45,6 +51,10 @@ export default {
 
   &--overflow-height {
     height: 100%;
+  }
+
+  &--no-header {
+    grid-template-rows: 1fr auto;
   }
 }
 

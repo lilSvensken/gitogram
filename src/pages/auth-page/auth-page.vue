@@ -13,17 +13,20 @@
           </button>
         </div>
 
-        <div class="auth__macbook-img-wrapper">
+        <div class="auth__device-img-wrapper">
           <img
             src="@/assets/img/macbook.png"
             alt="macbook"
-            class="auth__macbook-img"
+            width="800"
+            height="615"
+            class="auth__device-img"
           />
+          <div class="auth__device-background"></div>
         </div>
       </div>
 
-      <div class="auth__loader">
-        <c-loader v-if="isCode"></c-loader>
+      <div v-if="isCode" class="auth__loader">
+        <c-loader></c-loader>
       </div>
     </div>
   </div>

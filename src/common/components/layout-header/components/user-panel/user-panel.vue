@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.user" class="user-panel">
-    <router-link to="" class="user-panel__btn">
+    <router-link to="/" class="user-panel__btn">
       <icon-home class="user-panel__btn-icon" />
     </router-link>
     <router-link :to="getLkLink" class="user-panel__btn">

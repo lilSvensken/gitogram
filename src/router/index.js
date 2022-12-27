@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { RouterParams, RouterQuery } from "@/enums/router-params";
+import { RouterParams } from "@/enums/router-params";
 import { Errors } from "@/enums/errors";
 import { getUser } from "@/api/rest/user";
 
@@ -12,7 +12,7 @@ const router = createRouter({
       component: () => import("@/pages/favourites-page/favourites-page.vue"),
     },
     {
-      path: `/${RouterParams.stories}/:${RouterQuery.id}`,
+      path: `/${RouterParams.stories}`,
       name: RouterParams.stories,
       component: () => import("@/pages/stories-page/stories-page.vue"),
     },

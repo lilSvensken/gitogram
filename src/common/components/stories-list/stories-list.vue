@@ -16,7 +16,7 @@
           :key="repo.id"
           class="stories__item-wrapper"
         >
-          <router-link :to="getStoryUrl(repo.id)" class="stories__item-button">
+          <router-link :to="openStories(repo.id)" class="stories__item-button">
             <span class="stories__avatar-img-wrapper">
               <img
                 :src="repo.owner.avatarUrl"
@@ -48,7 +48,7 @@ import {
 } from "@/common/components/stories-list/computeds";
 import { usePopularReposStore } from "@/stores/popular-repositories.store";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
-import { RouterParams } from "@/enums/router-params";
+import { RouterParams, RouterQuery } from "@/enums/router-params";
 import CLoader from "@/common/components/stories-list/components/c-loader/c-loader.vue";
 
 export default {
@@ -94,8 +94,11 @@ export default {
         }, 5000);
       });
     },
-    getStoryUrl(id) {
-      return `/${RouterParams.stories}/${id}`;
+    openStories(id) {
+      return {
+        path: RouterParams.stories,
+        query: { [RouterQuery.id]: id },
+      };
     },
   },
   computed: {

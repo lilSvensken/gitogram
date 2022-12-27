@@ -14,14 +14,14 @@
 
         <user-panel v-if="!isPreviewBlack" />
 
-        <button
+        <router-link
           v-if="isPreviewBlack"
+          to="/"
           type="button"
           class="header__btn-close"
-          @click="onClose"
         >
           <icon-close class="header__close-icon" />
-        </button>
+        </router-link>
       </div>
     </div>
   </header>
@@ -41,11 +41,6 @@ export default {
     IconClose,
 
     IconLogo,
-  },
-  methods: {
-    onClose() {
-      this.$router.go(-1);
-    },
   },
   computed: {
     isPreviewBlack() {

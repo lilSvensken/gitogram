@@ -60,3 +60,22 @@
   color: var(--color-grey-4);
   margin-left: 20px;
 }
+
+.loader-list {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loader-center-page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

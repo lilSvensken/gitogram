@@ -2,21 +2,25 @@
   <div class="following">
     <div class="title-wrapper">
       <div class="title">Following</div>
-      <div class="title-value">{{ testData.length }}</div>
+      <div class="title-value">{{ followersCount }}</div>
     </div>
 
-    <ul class="following__list">
-      <li v-for="item in testData" :key="item" class="following__item">
+    <ul v-if="store.userFollowersList" class="following__list">
+      <li
+        v-for="item in store.userFollowersList"
+        :key="item"
+        class="following__item"
+      >
         <div class="following__item-info">
           <img
-            :src="store.user.avatarUrl"
-            :alt="store.user.login"
+            :src="item.avatarUrl"
+            :alt="item.login"
             class="following__item-img"
           />
 
           <div class="following__item-name-wrapper">
-            <div class="following__item-login">{{ store.user.login }}</div>
-            <div class="following__item-name">{{ store.user.name }}</div>
+            <div class="following__item-login">{{ item.login }}</div>
+            <div class="following__item-name">{{ item.name }}</div>
           </div>
         </div>
 
@@ -33,24 +37,36 @@
 </template>
 
 <script>
-import { useUserStore } from "@/stores/user.store";
+import { shortenCountNumber } from "@/libs/shorten-count-number";
+import { useUserFollowersStore } from "@/stores/user-followers.store";
 
 export default {
   name: "following-list",
-  data() {
-    return {
-      testData: [1, 2, 3],
-    };
-  },
-  // TODO !! заменить на запрос подписчиков юзера
+  props: ["followersCount"],
   setup() {
-    const store = useUserStore();
+    const store = useUserFollowersStore();
     return { store };
   },
+  mounted() {
+    this.fetchMore();
+  },
   methods: {
-    // TODO запрос подписаться
+    fetchMore() {
+      this.store.getUserFollowersList();
+    },
+    getShortenCountNumber(count) {
+      return shortenCountNumber(count);
+    },
     onFollowing() {
       console.log("onFollowing");
+    },
+  },
+  computed: {
+    isNoData() {
+      return !this.store.loading && !this.store.userReposList?.length;
+    },
+    isShowMore() {
+      return !this.store.isLastPage && !this.store.loading;
     },
   },
 };

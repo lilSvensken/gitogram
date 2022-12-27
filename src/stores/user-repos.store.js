@@ -1,28 +1,28 @@
 import { defineStore } from "pinia";
-import { getFavouritesRepos } from "@/api/rest/favourites";
+import { getUserReposList } from "@/api/rest/user";
 
-const OFFSET = 5;
+const OFFSET = 10;
 
-export const useFavouritesReposStore = defineStore("favourites-repos", {
+export const useUserReposStore = defineStore("user-repos", {
   state: () => ({
-    favouritesList: [],
+    userReposList: [],
     isLastPage: false,
     loading: false,
     error: null,
     currentPage: 1,
   }),
   actions: {
-    async getFavouritesList() {
+    async getUserReposList(owner) {
       if (!this.isLastPage) {
         this.loading = true;
         const page = this.currentPage;
 
         try {
-          const response = await getFavouritesRepos(page, OFFSET);
+          const response = await getUserReposList(owner, page, OFFSET);
 
           if (response) {
             this.currentPage++;
-            this.favouritesList.push(...response);
+            this.userReposList.push(...response);
             if (response.length < OFFSET) {
               this.isLastPage = true;
             }

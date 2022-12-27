@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
         const authPage = to.name === RouterParams.auth;
         const userAuthorized = data?.response?.status !== Errors.unauthorized;
 
-        // если автроризованный юзер на Авторизации - редирект на главную
+        // если авторизованный юзер на Авторизации - редирект на главную
         if (authPage && userAuthorized) {
           next({ name: defaultPageName });
           return;

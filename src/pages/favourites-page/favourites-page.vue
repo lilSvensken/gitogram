@@ -16,10 +16,10 @@
 
       <div v-if="isNoData">No data</div>
 
-      <c-loader class="favourites-page__loader" v-if="store.loading" />
+      <c-loader class="loader-list" v-if="store.loading" />
       <error-rest v-if="store.error" />
 
-      <div v-if="!store.isLastPage" class="favourites-page__btn-more-wrapper">
+      <div v-if="!store.isLastPage && !store.loading" class="btn-more-wrapper">
         <button @click="fetchMore" class="btn btn--main btn--center-row">
           Показать ещё
         </button>
@@ -47,9 +47,6 @@ export default {
     CDate,
     OwnerLink,
   },
-  data() {
-    return {};
-  },
   setup() {
     const store = useFavouritesReposStore();
     return { store };
@@ -64,7 +61,7 @@ export default {
   },
   computed: {
     isNoData() {
-      return !this.loading && !this.store.favouritesList?.length;
+      return !this.store.loading && !this.store.favouritesList?.length;
     },
   },
 };

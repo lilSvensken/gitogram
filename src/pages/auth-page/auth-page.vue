@@ -25,9 +25,7 @@
         </div>
       </div>
 
-      <div v-if="isCode" class="auth__loader">
-        <c-loader></c-loader>
-      </div>
+      <c-loader v-if="isCode" class="loader-center-page"></c-loader>
     </div>
   </div>
 </template>

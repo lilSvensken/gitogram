@@ -12,7 +12,7 @@
           <icon-logo class="header__logo" />
         </router-link>
 
-        <user-panel v-if="!isPreviewBlack" />
+        <user-panel v-if="!isPreviewBlack" :user="store.user" />
 
         <router-link
           v-if="isPreviewBlack"
@@ -32,6 +32,7 @@ import IconLogo from "@/assets/svg/icon-logo.vue";
 import { RouterParams } from "@/enums/router-params";
 import IconClose from "@/assets/svg/icon-close.vue";
 import UserPanel from "@/common/components/layout-header/components/user-panel/user-panel.vue";
+import { useUserStore } from "@/stores/user.store";
 
 export default {
   name: "layout-header",
@@ -39,8 +40,14 @@ export default {
   components: {
     UserPanel,
     IconClose,
-
     IconLogo,
+  },
+  setup() {
+    const store = useUserStore();
+    return { store };
+  },
+  mounted() {
+    this.store.getUser();
   },
   computed: {
     isPreviewBlack() {

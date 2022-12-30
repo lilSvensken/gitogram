@@ -1,0 +1,1 @@
+import{_ as e,o as _,c as s}from"./index.0907dd76.js";const o={name:"c-loader"};function a(c,t,n,r,d,p){return _(),s("div",null,"Loading...")}const f=e(o,[["render",a],["__scopeId","data-v-741fda60"]]);export{f as C};

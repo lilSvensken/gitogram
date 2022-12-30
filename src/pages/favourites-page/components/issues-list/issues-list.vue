@@ -8,8 +8,11 @@
       />
     </button>
 
-    <div class="issues-list__issues-list" :class="{ 'mod-show': isOpen }">
-      <ul>
+    <div
+      class="issues-list__issues-list-container"
+      :class="{ 'mod-show': isOpen }"
+    >
+      <ul class="issues-list__issues-list">
         <li
           v-for="(issue, index) in issues"
           :key="index"
@@ -28,7 +31,7 @@
         </li>
       </ul>
 
-      <c-loader v-if="loading" />
+      <loader-skeleton v-if="loading" />
       <error-rest v-if="error" />
       <div v-if="isNoData">No issues</div>
     </div>
@@ -38,12 +41,12 @@
 <script>
 import IconArrow from "@/assets/svg/icon-arrow.vue";
 import { getIssues } from "@/api/rest/repo";
-import CLoader from "@/common/components/loader/loader.vue";
 import ErrorRest from "@/common/components/error-rest/error-rest.vue";
+import LoaderSkeleton from "@/pages/favourites-page/components/issues-list/components/loader-skeleton/loader-skeleton.vue";
 
 export default {
   name: "issues-list",
-  components: { ErrorRest, CLoader, IconArrow },
+  components: { LoaderSkeleton, ErrorRest, IconArrow },
   props: ["repo"],
   data() {
     return {
@@ -65,11 +68,10 @@ export default {
 
       const ownerLogin = this.repo.owner.login;
       const repoName = this.repo.name;
-      const countIssues = 3;
 
       getIssues(ownerLogin, repoName)
         .then((response) => {
-          this.issues = response?.slice(0, countIssues);
+          this.issues = response;
         })
         .catch((error) => {
           this.error = error;

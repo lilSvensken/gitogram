@@ -1,10 +1,9 @@
 @use "sass:math";
-
 // брекпоинты
 $desktop: 1280px;
 $tablet: 1024px;
 $ipad: 768px;
-$mobile: 376px;
+$mobile: 560px;
 $min: 320px;
 
 // для адаптива, вместо @media
@@ -57,13 +56,13 @@ $min: 320px;
   }
 }
 
-@mixin for-mb-up {
+@mixin for-min-up {
   @media screen and (min-width: $min) {
     @content;
   }
 }
 
-@mixin for-mb-down {
+@mixin for-min-down {
   @media screen and (max-width: $min - 1) {
     @content;
   }

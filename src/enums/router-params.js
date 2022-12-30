@@ -1,9 +1,10 @@
-export const routerParams = {
-  repositoriesList: "repositories-list",
+export const RouterParams = {
+  favourites: "favourites",
   stories: "stories",
   auth: "auth",
+  lk: "lk",
 };
 
-export const routerQuery = {
+export const RouterQuery = {
   id: "id",
 };

@@ -35,3 +35,47 @@
     max-width: calc(980px + var(--page-content-padding) * 2);
   }
 }
+
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 28px;
+
+  @include for-ip-down {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+.title-value {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--color-grey-4);
+  margin-left: 20px;
+}
+
+.loader-list {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loader-center-page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

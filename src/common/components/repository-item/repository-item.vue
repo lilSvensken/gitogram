@@ -1,7 +1,7 @@
 <template>
   <div class="repository">
     <div class="repository__news">
-      <a :href="repo.svnUrl" target="_blank" class="repository__title">
+      <a :href="repo.svnUrl" target="_blank" class="repository__title title">
         {{ repo.name }}
       </a>
       <p class="repository__text" v-html="repo.description"></p>
@@ -9,7 +9,12 @@
 
     <div class="repository__controls">
       <label class="repository__control repository__control--grey">
-        <input type="checkbox" class="repository__star-input" @click="onStar" />
+        <input
+          type="checkbox"
+          class="repository__star-input"
+          :checked="isStarred"
+          @click="onStar"
+        />
         <span class="repository__stars-wrapper">
           <icon-star class="repository__star" />
           <icon-star-filled class="repository__star repository__star--filled" />
@@ -39,7 +44,7 @@
       </div>
 
       <div class="repository__control-info">
-        {{ repo.forksCount }}
+        {{ onFormatStarsCount(repo.forksCount) }}
       </div>
     </div>
   </div>
@@ -50,26 +55,39 @@ import IconStar from "@/assets/svg/icon-star.vue";
 import IconBranch from "@/assets/svg/icon-branch.vue";
 import IconStarFilled from "@/assets/svg/icon-star-filled.vue";
 import { shortenCountNumber } from "@/libs/shorten-count-number";
+import { starred, unStarred } from "@/api/rest/favourites";
 
 export default {
   name: "repository-item",
   components: { IconStarFilled, IconBranch, IconStar },
   props: ["repo"],
+  data() {
+    return {
+      isStarred: false,
+    };
+  },
   methods: {
     onFormatStarsCount(count) {
       return shortenCountNumber(count);
     },
     onStar() {
-      // TODO реализовать добавление в избранное
-      console.log("onStar");
+      if (this.isStarred) {
+        unStarred(this.repo.owner.login, this.repo.name).then(() => {
+          this.isStarred = false;
+        });
+      } else {
+        starred(this.repo.owner.login, this.repo.name).then(() => {
+          this.isStarred = true;
+        });
+      }
     },
   },
   computed: {
     // TODO можно реализовать внутренюю страницу с members, а не от github
     getLinkMembers() {
-      const login = this.repo.owner.login;
-      const repoName = this.repo.name;
-      return `https://github.com/${login}/${repoName}/network/members`;
+      const owner = this.repo.owner.login;
+      const repo = this.repo.name;
+      return `https://github.com/${owner}/${repo}/network/members`;
     },
   },
 };

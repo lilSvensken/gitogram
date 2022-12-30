@@ -7,7 +7,7 @@
       />
     </div>
 
-    <router-link to="/" class="slide-header__user-info">
+    <a :href="owner.htmlUrl" class="slide-header__user-info" target="_blank">
       <img
         :src="owner.avatarUrl"
         :alt="owner.login"
@@ -15,7 +15,7 @@
       />
 
       <div class="slide-header__login">{{ owner.login }}</div>
-    </router-link>
+    </a>
   </div>
 </template>
 

@@ -2,18 +2,55 @@
 @import "@/common/styles/minxins";
 
 .auth {
-  height: 100vh;
-  padding: 40px 0;
+  height: 100%;
+  padding: 20px 0;
+
+  @include for-ip-down {
+    padding-top: 200px;
+    padding-bottom: 0;
+  }
+
+  @include for-mb-down {
+    padding: 50px 0;
+  }
+
+  &__page-content {
+    height: 100%;
+  }
 
   &__content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100%;
+
+    @include for-ip-down {
+      flex-direction: column;
+    }
+
+    @include for-mb-down {
+      flex-direction: column-reverse;
+    }
   }
 
   &__header {
     margin-right: 50px;
-    max-width: 256px;
+    width: 256px;
+    flex: 0 0 256px;
+
+    @include for-ip-down {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 0;
+      flex: auto;
+      margin-bottom: 116px;
+    }
+
+    @include for-mb-down {
+      margin-bottom: 0;
+      margin-top: 60px;
+    }
   }
 
   &__logo {
@@ -28,6 +65,10 @@
     line-height: 28px;
     color: var(--color-grey-4);
     margin-bottom: 54px;
+
+    @include for-ip-down {
+      text-align: center;
+    }
   }
 
   &__btn {
@@ -41,14 +82,37 @@
     margin-left: 12px;
   }
 
-  &__macbook-img-wrapper {
+  &__device-img-wrapper {
     display: flex;
     align-items: center;
   }
 
-  &__macbook-img {
+  &__device-img {
     transform: translateX(44%);
+    width: auto;
     height: 60vh;
-    object-fit: contain;
+
+    @include for-ip-down {
+      display: none;
+    }
+  }
+
+  &__device-background {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("@/assets/img/ipad-pro-overflow.png");
+    width: 618px;
+    max-width: calc(100vw - var(--page-content-padding) * 2);
+    height: 512px;
+    background-position: bottom center;
+
+    @include for-ip-up {
+      display: none;
+    }
+
+    @include for-mb-down {
+      background-image: url("@/assets/img/phone.png");
+      height: 438px;
+    }
   }
 }

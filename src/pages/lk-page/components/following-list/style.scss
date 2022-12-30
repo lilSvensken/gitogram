@@ -1,0 +1,80 @@
+@import "@/common/styles/size";
+@import "@/common/styles/minxins";
+
+.following {
+  &__list {
+    @include resetBaseStyles;
+  }
+
+  &__item {
+    @include resetBaseStyles;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & + & {
+      margin-top: 32px;
+
+      @include for-ip-down {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  &__item-info {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__item-img {
+    width: 72px;
+    height: 72px;
+    margin-right: 18px;
+    border-radius: 100%;
+
+    @include for-ip-down {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  &__item-login {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.1px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @include for-ip-down {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+
+  &__item-name-wrapper {
+    overflow: hidden;
+  }
+
+  &__item-name {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-grey-4);
+
+    @include for-ip-down {
+      font-size: 10px;
+      line-height: 14px;
+    }
+  }
+
+  &__item-btn {
+    width: 116px;
+  }
+}

@@ -9,7 +9,7 @@ const LANGUAGE = "javascript";
 export const usePopularReposStore = defineStore("popular-repositories", {
   state: () => ({
     popularRepos: [],
-    totalCount: null,
+    totalCount: undefined,
     loading: false,
     error: null,
     currentPage: 1,

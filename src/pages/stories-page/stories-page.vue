@@ -1,47 +1,51 @@
 <template>
   <div class="stories stories-preview-swiper">
-    <swiper
-      :modules="modules"
-      :slides-per-view="4.5"
-      :space-between="12"
-      :centered-slides="true"
-      :navigation="true"
-      :keyboard="true"
-      @swiper="onSwiper"
-      @slideChange="slideChange"
-    >
-      <swiper-slide
-        v-for="(repo, index) in store.popularRepos"
-        :key="repo.id"
-        class="stories__item-wrapper"
-        :class="{ ['active']: slideActive === index }"
+    <div class="stories__page-content">
+      <swiper
+        :modules="modules"
+        :slides-per-view="getSlidePerView"
+        :space-between="12"
+        :centered-slides="true"
+        :navigation="true"
+        :keyboard="true"
+        @swiper="onSwiper"
+        @slideChange="slideChange"
       >
-        <slide-header
-          :progressPercent="progressPercent"
-          :index="index"
-          :owner="repo.owner"
-          :slideActive="slideActive"
-        />
-
-        <div
-          class="stories__info"
-          :class="{ ['stories__info--small']: repo.readme }"
+        <swiper-slide
+          v-for="(repo, index) in store.popularRepos"
+          :key="repo.id"
+          class="stories__item-wrapper"
+          :class="{ ['active']: slideActive === index }"
         >
-          <template v-if="repo.readme">
-            <div v-if="repo.readme.data" v-html="repo.readme.data" />
-            <div class="stories__info-error" v-if="repo.readme.err">
-              Ошибка загрузки
-            </div>
-          </template>
+          <slide-header
+            :progressPercent="progressPercent"
+            :index="index"
+            :owner="repo.owner"
+            :slideActive="slideActive"
+          />
 
-          <c-skeleton v-if="!repo.readme" />
-        </div>
+          <div
+            class="stories__info"
+            :class="{ ['stories__info--small']: repo.readme }"
+          >
+            <template v-if="repo.readme">
+              <div v-if="repo.readme.data" v-html="repo.readme.data" />
+              <div class="stories__info-error" v-if="repo.readme.err">
+                Ошибка загрузки
+              </div>
+            </template>
 
-        <div class="stories__btn-follow-wrapper">
-          <button type="button" class="stories__btn-follow btn">Follow</button>
-        </div>
-      </swiper-slide>
-    </swiper>
+            <c-skeleton v-if="!repo.readme" />
+          </div>
+
+          <div class="stories__btn-follow-wrapper">
+            <button type="button" class="stories__btn-follow btn">
+              Follow
+            </button>
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
   </div>
 </template>
 
@@ -54,9 +58,10 @@ import {
   MIN_PROGRESS_PERCENT,
   SPEED_CHANGE_SLIDE,
 } from "@/pages/stories-page/consts";
-import { usePopularReposStore } from "@/stores/popular-repositories";
-import { routerQuery } from "@/enums/router-params";
+import { usePopularReposStore } from "@/stores/popular-repositories.store";
+import { RouterQuery } from "@/enums/router-params";
 import CSkeleton from "@/pages/stories-page/components/c-skeleton/c-skeleton.vue";
+import { getSlidePerView } from "@/pages/stories-page/computeds";
 
 export default {
   name: "stories-page",
@@ -87,20 +92,22 @@ export default {
       if (!this.store.popularRepos.length) {
         this.fetchMore(true);
       } else {
-        this.slideTo();
+        this.setDefaultSlide();
         this.startTimerAutoFlipping();
       }
     },
     slideChange() {
       this.slideActive = this.swiper.activeIndex;
       this.getReadme();
+      const id = this.store.popularRepos[this.swiper.activeIndex].id;
+      this.$router.push({ query: { [RouterQuery.id]: id } });
       const countSlideRight = this.store.popularRepos.length - this.slideActive;
       if (countSlideRight <= 3) {
         this.fetchMore();
       }
     },
-    slideTo() {
-      const itemId = +this.$route.params[routerQuery.id];
+    setDefaultSlide() {
+      const itemId = +this.$route.query[RouterQuery.id];
       const activeIndex = this.store.popularRepos.findIndex(
         (item) => item.id === itemId
       );
@@ -122,7 +129,7 @@ export default {
     fetchMore(isInitProject) {
       this.store.fetchMorePopularRepos().then(() => {
         if (isInitProject && this.store.popularRepos.length) {
-          this.slideTo();
+          this.setDefaultSlide();
         }
         // достижение конечного элемента в списке на сервере
         if (
@@ -142,6 +149,11 @@ export default {
       this.store.fetchReadmeRepo(index, owner, repo).then(() => {
         this.startTimerAutoFlipping();
       });
+    },
+  },
+  computed: {
+    getSlidePerView() {
+      return getSlidePerView();
     },
   },
 };

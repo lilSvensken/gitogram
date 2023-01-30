@@ -1,4 +1,4 @@
-# Gitogram - учебный проект по завершению курса loftschool VueJs
+# Gitogram - иналог инстаграмма на основе открытых api GitHub
 
 Template Vue 3 in Vite.
 

@@ -1,4 +1,4 @@
-# Gitogram - иналог инстаграмма на основе открытых api GitHub
+# Gitogram - aналог инстаграмма на основе открытых api GitHub
 
 Template Vue 3 in Vite.
 
